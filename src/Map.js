@@ -5,7 +5,7 @@ class Map extends Component {
 
     render(){
         return(
-              <div>holla</div>
+              <div>the map</div>
         )
     }
   }
