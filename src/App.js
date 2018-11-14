@@ -6,6 +6,17 @@ import { Route } from 'react-router-dom'
 
 class App extends Component {
 
+  state = {
+    query: "",
+    allCafes: [], //Store the Raw Data coming from fourSquare
+    allMarkers: [], //Store the Markers Data
+    mapCenter: {
+      name: "",
+      lat: "",
+      lng: ""
+      }
+}
+
   /*** CALLING APIS ***/
     componentWillMount(){
         this.renderSearch()  // Call Gmap
@@ -32,19 +43,37 @@ class App extends Component {
         let input = document.querySelector(".search-café")
         let autocomplete = new window.google.maps.places.Autocomplete(input)
         autocomplete.addListener('place_changed', () => {
-              var place = autocomplete.getPlace()
+              let place = autocomplete.getPlace()
               let lat = place.geometry.location.lat()
               let lng = place.geometry.location.lng()
-              console.log("lat ", lat);
-              console.log("lng ", lng);
+              console.log("lat ", lat)
+              console.log("lng ", lng)
+              console.log("place ", place)
+              this.getMapCenter(place.formatted_address, lat, lng)
+              //this.activate4Square() // Call 4square
             })
 
         console.log("Home");
       }
     }
 
+    getMapCenter(place, lat, lng){
+      let updatedMapCenter = {
+      name: place,
+      lat: lat,
+      lng: lng
+    }
+    this.setState({
+      mapCenter: updatedMapCenter
+    })
+    }
+
+
+  
+
 
   render() {
+    console.log("The State", this.state);
     return (
       <div className="main">
         <Route exact path="/"
