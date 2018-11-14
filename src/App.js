@@ -7,7 +7,6 @@ import { Route } from 'react-router-dom'
 class App extends Component {
 
   state = {
-    query: "",
     allCafes: [], //Store the Raw Data coming from fourSquare
     allMarkers: [], //Store the Markers Data
     mapCenter: {
@@ -26,7 +25,8 @@ class App extends Component {
       this.activateGMap()
     }
 
-  /*** GOOGLE MAP ***/
+
+/********************* GOOGLE MAP *********************/
     /** AUTOCOMPLETE**/
     // render Autocomplete Search
     renderSearch = () => {
@@ -41,7 +41,8 @@ class App extends Component {
         console.log("MAP");
       } else {
         let input = document.querySelector(".search-café")
-        let autocomplete = new window.google.maps.places.Autocomplete(input)
+        const options = {types: ['(cities)']};
+        let autocomplete = new window.google.maps.places.Autocomplete(input, options)
         autocomplete.addListener('place_changed', () => {
               let place = autocomplete.getPlace()
               let lat = place.geometry.location.lat()
@@ -50,7 +51,7 @@ class App extends Component {
               console.log("lng ", lng)
               console.log("place ", place)
               this.getMapCenter(place.formatted_address, lat, lng)
-              //this.activate4Square() // Call 4square
+              this.activate4Square(lat, lng) // Call 4square
             })
 
         console.log("Home");
@@ -62,16 +63,50 @@ class App extends Component {
       name: place,
       lat: lat,
       lng: lng
-    }
-    this.setState({
-      mapCenter: updatedMapCenter
-    })
+      }
+      this.setState({
+        mapCenter: updatedMapCenter
+      })
     }
 
+  /** INIT MAP**/
+    //Create Markers
+    createMarkers(cafes){
+      let allMarkers = []
+        cafes.map( cafe => {
+          let marker = {
+            id: '',
+            name: '',
+            address: '',
+            city:'',
+            postalCode: '',
+            state: '',
+            country: '',
+            location: {
+              lat: 0,
+              lng: 0
+            }
+          }
+        marker.id = cafe.venue.id
+        marker.name = cafe.venue.name
+        marker.address = cafe.venue.location.address
+        marker.city = cafe.venue.location.city
+        marker.postalCode = cafe.venue.location.postalCode
+        marker.state = cafe.venue.location.state
+        marker.country = cafe.venue.location.country
+        marker.location.lat = cafe.venue.location.lat
+        marker.location.lng = cafe.venue.location.lng
+        return allMarkers.push(marker)
+      })
+      this.setState({ allMarkers })
+    }
 
-    /*** fourSquare ***/
-    activate4Square = () => {
-      fetch('https://api.foursquare.com/v2/venues/explore?client_id=FBFR4MRSN5YJ34CQKWAN0RWG55X41LX0ILOLM5JW52T0ZMKP&client_secret=2NPKFK05BW3WOBENMIWPRPFKQEDBWLNGXX1ANW5YUFQ1QHLD&v=20180323&limit=100&near=sydney&radius=1500&query=Café')
+/********************* FOURSQUARE *********************/
+    activate4Square = (lat, lng) => {
+      // Add the lat and lng provided by autocomplete to 4Square url
+      let url = `https://api.foursquare.com/v2/venues/explore?client_id=FBFR4MRSN5YJ34CQKWAN0RWG55X41LX0ILOLM5JW52T0ZMKP&client_secret=2NPKFK05BW3WOBENMIWPRPFKQEDBWLNGXX1ANW5YUFQ1QHLD&v=20180323&limit=100&ll=${lat},${lng}&radius=1500&query=Café`
+      // Search For Cafes
+      fetch(url)
         .then(places=> places.json())
         .then(parsedJSON => {
           //Get allCafes
@@ -79,10 +114,10 @@ class App extends Component {
           //Get allMarkers
           this.createMarkers(this.state.allCafes)
         })
-        .catch(error => console.log("oops"))
+        .catch(error => console.log("oops", error))
     }
 
-
+/********************* Render *********************/
   render() {
     console.log("The State", this.state);
     return (
