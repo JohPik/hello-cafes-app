@@ -124,7 +124,7 @@ class App extends Component {
       <div className="main">
         <Route exact path="/"
                render={() => (
-                 <Home />
+                 <Home allCafes={this.state.allCafes}/>
                )}
         />
 
