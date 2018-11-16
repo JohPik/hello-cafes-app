@@ -27,79 +27,87 @@ class App extends Component {
 
 
 /********************* GOOGLE MAP *********************/
-    /** AUTOCOMPLETE**/
-    // render Autocomplete Search
+
+    /** LOADING Gmap**/
+    // Load Gmap Script and call callback function
     renderSearch = () => {
       loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDS0pzpMW_qNo6xMb8d0I69zukaOsC0Lx0&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
-      // window.activatePlaceSearch = this.activatePlaceSearch
     }
 
-    // Use Autocomplete to generate next map center
+    // Gmap Callback fucntion is decided by url name
     activateGMap = () => {
       if(window.location.href.indexOf("map") > -1){
-        console.log("MAP");
+        this.initMap()
       } else {
-        let input = document.querySelector(".search-café")
-        const options = {types: ['(cities)']};
-        let autocomplete = new window.google.maps.places.Autocomplete(input, options)
-        autocomplete.addListener('place_changed', () => {
-              let place = autocomplete.getPlace()
-              let lat = place.geometry.location.lat()
-              let lng = place.geometry.location.lng()
-              console.log("lat ", lat)
-              console.log("lng ", lng)
-              console.log("place ", place)
-              this.getMapCenter(place.formatted_address, lat, lng)
-              this.activate4Square(lat, lng) // Call 4square
-            })
-
-        console.log("Home");
+        this.autoComplete()
       }
     }
 
-    getMapCenter(place, lat, lng){
-      let updatedMapCenter = {
-      name: place,
-      lat: lat,
-      lng: lng
+    /** AUTOCOMPLETE**/
+    autoComplete = () => {
+      let input = document.querySelector(".search-café")
+      const options = {types: ['(cities)']};
+      let autocomplete = new window.google.maps.places.Autocomplete(input, options)
+      autocomplete.addListener('place_changed', () => {
+            let place = autocomplete.getPlace()
+            let lat = place.geometry.location.lat()
+            let lng = place.geometry.location.lng()
+            console.log("lat ", lat)
+            console.log("lng ", lng)
+            console.log("place ", place)
+            this.getMapCenter(place.formatted_address, lat, lng)
+            this.activate4Square(lat, lng) // Call 4square
+          })
+        }
+
+  /** BEFORE RENDERING MAP **/
+    // Define Map Center
+      getMapCenter = (place, lat, lng) => {
+        let updatedMapCenter = {
+        name: place,
+        lat: lat,
+        lng: lng
+        }
+        this.setState({
+          mapCenter: updatedMapCenter
+        })
       }
-      this.setState({
-        mapCenter: updatedMapCenter
-      })
-    }
+    //Create Markers
+      createMarkers(cafes){
+        let allMarkers = []
+          cafes.map( cafe => {
+            let marker = {
+              id: '',
+              name: '',
+              address: '',
+              city:'',
+              postalCode: '',
+              state: '',
+              country: '',
+              location: {
+                lat: 0,
+                lng: 0
+              }
+            }
+          marker.id = cafe.venue.id
+          marker.name = cafe.venue.name
+          marker.address = cafe.venue.location.address
+          marker.city = cafe.venue.location.city
+          marker.postalCode = cafe.venue.location.postalCode
+          marker.state = cafe.venue.location.state
+          marker.country = cafe.venue.location.country
+          marker.location.lat = cafe.venue.location.lat
+          marker.location.lng = cafe.venue.location.lng
+          return allMarkers.push(marker)
+        })
+        this.setState({ allMarkers })
+      }
 
   /** INIT MAP**/
-    //Create Markers
-    createMarkers(cafes){
-      let allMarkers = []
-        cafes.map( cafe => {
-          let marker = {
-            id: '',
-            name: '',
-            address: '',
-            city:'',
-            postalCode: '',
-            state: '',
-            country: '',
-            location: {
-              lat: 0,
-              lng: 0
-            }
-          }
-        marker.id = cafe.venue.id
-        marker.name = cafe.venue.name
-        marker.address = cafe.venue.location.address
-        marker.city = cafe.venue.location.city
-        marker.postalCode = cafe.venue.location.postalCode
-        marker.state = cafe.venue.location.state
-        marker.country = cafe.venue.location.country
-        marker.location.lat = cafe.venue.location.lat
-        marker.location.lng = cafe.venue.location.lng
-        return allMarkers.push(marker)
-      })
-      this.setState({ allMarkers })
-    }
+  initMap(){
+    console.log("hello");
+  }
 
 /********************* FOURSQUARE *********************/
     activate4Square = (lat, lng) => {
