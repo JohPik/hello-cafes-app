@@ -115,11 +115,33 @@ class App extends Component {
           zoom: 16
         })
 
-    this.state.allMarkers.map( marker => {
-      let mapMarker = new window.google.maps.Marker({
-            position: {lat: marker.location.lat, lng: marker.location.lng},
+    this.state.allMarkers.map( customMarker => {
+      // create Markers
+      let marker = new window.google.maps.Marker({
+            position: {lat: customMarker.location.lat, lng: customMarker.location.lng},
             map: map,
           })
+
+      // infowindow content
+      // let infowindowContent =  `${customMarker.name}`
+      let infowindowContent =  `<div>
+            <h1>${customMarker.name}</h1>
+            <p>${customMarker.address}, ${customMarker.city}, ${customMarker.postalCode}, ${customMarker.state}, ${customMarker.country}</p>
+      </div>`
+
+
+      // create infowindowx
+      let infowindow = new window.google.maps.InfoWindow({
+            content: infowindowContent
+          })
+
+
+      // open infowindow
+      marker.addListener('click', () => {
+            infowindow.open(map, marker);
+          })
+
+      return customMarker // Usesless just to get rid  of warning message bloody Console :( Grrrrrrr
     })
 
         return map // Usesless just to get rid  of warning message bloody Console :( Grrrrrrr
