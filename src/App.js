@@ -38,6 +38,7 @@ class App extends Component {
     // Gmap Callback fucntion is decided by url name
     activateGMap = () => {
       if(window.location.href.indexOf("map") > -1){
+        console.log("Map mounted");
         this.initMap()
       } else {
         this.autoComplete()
@@ -53,9 +54,9 @@ class App extends Component {
             let place = autocomplete.getPlace()
             let lat = place.geometry.location.lat()
             let lng = place.geometry.location.lng()
-            console.log("lat ", lat)
-            console.log("lng ", lng)
-            console.log("place ", place)
+            // console.log("lat ", lat)
+            // console.log("lng ", lng)
+            // console.log("place ", place)
             this.getMapCenter(place.formatted_address, lat, lng)
             this.activate4Square(lat, lng) // Call 4square
           })
@@ -102,11 +103,26 @@ class App extends Component {
           return allMarkers.push(marker)
         })
         this.setState({ allMarkers })
+        console.log("MARKERS", this.state.allMarkers);
       }
 
   /** INIT MAP**/
-  initMap(){
-    console.log("hello");
+  initMap = () => {
+
+    let map = new window.google.maps.Map(document.getElementById('map'), {
+          style: { height: '100%', position: 'static', width: '100%' },
+          center: {lat: this.state.mapCenter.lat, lng: this.state.mapCenter.lng},
+          zoom: 16
+        })
+
+    this.state.allMarkers.map( marker => {
+      let mapMarker = new window.google.maps.Marker({
+            position: {lat: marker.location.lat, lng: marker.location.lng},
+            map: map,
+          })
+    })
+
+        return map // Usesless just to get rid  of warning message bloody Console :( Grrrrrrr
   }
 
 /********************* FOURSQUARE *********************/
@@ -124,6 +140,8 @@ class App extends Component {
         })
         .catch(error => console.log("oops", error))
     }
+
+
 
 /********************* Render *********************/
   render() {
