@@ -1,32 +1,188 @@
-.App {
+
+/* General */
+html, body, .main {
+  font-family: Mali, cursive;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.home-main {
+    background-image: url("./images/Coffee-Background-Picture.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover;
+    height: 100vh;
+}
+
+/* Heading */
+
+.heading {
+  background-color: #060659;
+  color: white;
   text-align: center;
+  height: 80px;
+  line-height: 80px;
+  border-bottom: solid white 2px;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
+.heading h1 {
+  margin: 0;
+  font-size: 200%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.heading i{
+  color: #F22C63;
+  margin: 0 10px;
+}
+
+/* The mainContent */
+.mainContent {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  flex-flow: row wrap;
+  height: calc(100vh - 82px); /* need to change that */
+  width: 100%;
+}
+
+/* The Search */
+.search{
+  width: 30%;
+  height: 80px;
+  background-color: #F27141;
+  position: relative;
+}
+
+.search input{
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  border: 0;
+  padding-left: 40px;
+  font-size: 100%;
+  font-family: Mali, cursive;
+}
+
+.search i{
+  color: #F22C63;
+  position: absolute;
+  line-height: 80px;
+  padding-left: 10px;
+  top: 0;
+}
+
+.cafes-numbers {
+    position: absolute;
+    top: 65px;
+    margin: 0;
+    font-size: .6em;
+    right: 10px;
+}
+
+.cafes-numbers span{
+    font-weight: bold;
+    color: #F22C63;
+}
+
+/* The Map */
+.map {
+  margin-top: 2px;
+  width: 70%;
+  height: 100%;
+  position: static;
+}
+
+/* The Search Result */
+.search-list {
+  width: 100%;
+  height: calc(100vh - 162px);
+  overflow: auto;
+  margin: 1em;
+  color: white;
+  font-family: Mali, cursive;
+  font-size: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.search-list li {
+  position: relative;
+  height: 80px;
+  padding: 10px 20px 10px 20px;
+}
+
+.search-list li:nth-child(2n) {
+  background: #060659;
+}
+.search-list li:nth-child(2n + 1) {
+  background: #06F5F4;
+  color: #060659;
+}
+
+.search-list p {
+  margin: 0;
+}
+
+.cafe-name{
+  font-weight: bold;
+  font-size: 1.1em;
+  color: #F22C63;
+}
+
+.search-failed{
+  background: #F22C63;
+  text-align: center;
+  height: calc(100vh - 162px);
+}
+
+.search-loads{
+  background: #060659;
+  text-align: center;
+  height: calc(100vh - 162px);
+}
+
+.no-match, .loading-cafes {
+  padding-top: calc(100vh - 162px - 100%);
+  margin: 0;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+ /*** Responive Design ***/
+ @media (max-width: 800px) {
+  .heading{
+    /* background-color: red; */
+  }
+  .search, .search-result{
+    width: 100%;
+  }
+  .search-result{
+    position: absolute;
+    bottom: calc(-100vh + 162px);
+  }
+  .search-list{
+    height: calc(57vh - 162px);
+  }
+  .search input{
+    width: calc(100% - 40px);
+  }
+  .map{
+      margin-top: 0;
+      width: 100%;
+      height: calc(60vh - 162px);
+      position: absolute;
+      top: 162px;
+  }
+
+ }
+
+ a.home {
+    position: absolute;
+    left: 20px;
+    color: #66FF66;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
+.pac-container:after {
+    background-image: none !important;
+    height: 0px;
 }
