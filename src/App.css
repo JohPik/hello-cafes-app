@@ -84,12 +84,12 @@ html, body, .main {
 }
 
 /* The Map */
-/* .map {
+#map {
   margin-top: 2px;
   width: 70%;
   height: 100%;
   position: static;
-} */
+}
 
 /* The Search Result */
 .search-list {
@@ -166,13 +166,13 @@ html, body, .main {
     width: calc(100% - 40px);
   }
 
-  /* .map{
+  #map{
       margin-top: 0;
       width: 100%;
       height: calc(60vh - 162px);
       position: absolute;
       top: 162px;
-  } */
+  }
 
  }
 
@@ -188,6 +188,6 @@ html, body, .main {
     height: 0px;
 }
 
-#map{
+/* #map{
   height: 100vh !important;
-}
+} */

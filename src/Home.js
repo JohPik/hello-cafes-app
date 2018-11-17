@@ -5,7 +5,6 @@ class Home extends Component {
     checkCafes = () => {
       if (this.props.allCafes.length < 1) {
         let url = "/"
-        console.log("There is a Problem");
         return url
       } else {
         let url = "/map"
@@ -14,8 +13,6 @@ class Home extends Component {
     }
 
     render(){
-
-      console.log("props", this.props);
       return (
         <div className="home-main">
             <p>Where are you?</p>

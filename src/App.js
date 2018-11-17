@@ -3,18 +3,20 @@ import './App.css'
 import Home from './Home'
 import Map from './Map'
 import { Route } from 'react-router-dom'
+import MapHeader from './MapHeader'
 
 class App extends Component {
 
   state = {
     allCafes: [], //Store the Raw Data coming from fourSquare
-    allMarkers: [], //Store the Markers Data
+    markersData: [], //Store the Markers Data
     mapCenter: {
       name: "",
       lat: "",
       lng: ""
       }
-}
+    }
+
 
   /*** CALLING APIS ***/
     componentWillMount(){
@@ -38,7 +40,6 @@ class App extends Component {
     // Gmap Callback fucntion is decided by url name
     activateGMap = () => {
       if(window.location.href.indexOf("map") > -1){
-        console.log("Map mounted");
         this.initMap()
       } else {
         this.autoComplete()
@@ -54,9 +55,7 @@ class App extends Component {
             let place = autocomplete.getPlace()
             let lat = place.geometry.location.lat()
             let lng = place.geometry.location.lng()
-            // console.log("lat ", lat)
-            // console.log("lng ", lng)
-            // console.log("place ", place)
+
             this.getMapCenter(place.formatted_address, lat, lng)
             this.activate4Square(lat, lng) // Call 4square
           })
@@ -76,7 +75,7 @@ class App extends Component {
       }
     //Create Markers
       createMarkers(cafes){
-        let allMarkers = []
+        let markersData = []
           cafes.map( cafe => {
             let marker = {
               id: '',
@@ -100,13 +99,15 @@ class App extends Component {
           marker.country = cafe.venue.location.country
           marker.location.lat = cafe.venue.location.lat
           marker.location.lng = cafe.venue.location.lng
-          return allMarkers.push(marker)
+          return markersData.push(marker)
         })
-        this.setState({ allMarkers })
-        console.log("MARKERS", this.state.allMarkers);
+        this.setState({ markersData })
       }
 
   /** INIT MAP**/
+
+  markerObjectsArray = [] //Array of Marker Objects
+
   initMap = () => {
 
     let map = new window.google.maps.Map(document.getElementById('map'), {
@@ -115,7 +116,7 @@ class App extends Component {
           zoom: 16
         })
 
-    this.state.allMarkers.map( customMarker => {
+    this.state.markersData.map( customMarker => {
       // create Markers
       let marker = new window.google.maps.Marker({
             position: {lat: customMarker.location.lat, lng: customMarker.location.lng},
@@ -130,7 +131,7 @@ class App extends Component {
       </div>`
 
 
-      // create infowindowx
+      // create infowindow
       let infowindow = new window.google.maps.InfoWindow({
             content: infowindowContent
           })
@@ -141,10 +142,12 @@ class App extends Component {
             infowindow.open(map, marker);
           })
 
-      return customMarker // Usesless just to get rid  of warning message bloody Console :( Grrrrrrr
+      this.markerObjectsArray.push(customMarker) // push the marker to the Array of markers
+
+      return customMarker // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
     })
 
-        return map // Usesless just to get rid  of warning message bloody Console :( Grrrrrrr
+    return map // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
   }
 
 /********************* FOURSQUARE *********************/
@@ -167,7 +170,6 @@ class App extends Component {
 
 /********************* Render *********************/
   render() {
-    console.log("The State", this.state);
     return (
       <div className="main">
         <Route exact path="/"
@@ -178,7 +180,8 @@ class App extends Component {
 
         <Route exact path="/map" render={() => (
             <div className="map-screen">
-              <Map />
+              <MapHeader/>
+              <Map allCafes={this.state.allCafes} markersData={this.state.markersData} markerObjectsArray={this.markerObjectsArray}/>
             </div>
             )}
         />
