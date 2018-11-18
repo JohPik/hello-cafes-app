@@ -4,12 +4,14 @@ import Home from './Home'
 import Map from './Map'
 import { Route } from 'react-router-dom'
 import MapHeader from './MapHeader'
+import escapeRegExp from 'escape-string-regexp'
 
 class App extends Component {
 
   state = {
     allCafes: [], //Store the Raw Data coming from fourSquare
     markersData: [], //Store the Markers Data
+    query: "",  //query of the Search
     mapCenter: {
       name: "",
       lat: "",
@@ -116,11 +118,12 @@ class App extends Component {
           zoom: 16
         })
 
-    this.state.markersData.map( customMarker => {
+    this.shownMarker.map( customMarker => {
       // create Markers
       let marker = new window.google.maps.Marker({
             position: {lat: customMarker.location.lat, lng: customMarker.location.lng},
             map: map,
+            animation: window.google.maps.Animation.DROP
           })
 
       // infowindow content
@@ -166,10 +169,41 @@ class App extends Component {
         .catch(error => console.log("oops", error))
     }
 
+/********************* Search Map *********************/
 
+    // When Input Changes the query changes too
+     updateQuery = (query) => {
+       this.setState({query: query.trim()})
+     }
+
+     // Open InfoWindow when a link is cliked form the list
+     openInfoWindow = (link) =>{
+       this.markerObjectsArray.map( marker => {
+         if (marker.id === link) {
+           window.google.maps.event.trigger(marker, 'click');
+           console.log("link is working", marker.id);
+         }
+       })
+     }
+
+  shownMarker = [] // Array of Shown Markers
+
+  //Filter through all the Markers to render only the ones that match the search
+  checkshownMarkers = () => {
+    if(this.state.query){
+      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+      this.shownMarker = this.state.markersData.filter((marker) =>   match.test(marker.name))
+    } else {
+      this.shownMarker = this.state.markersData
+    }
+  }
 
 /********************* Render *********************/
   render() {
+
+    //Filter through all the Markers to render only the ones that match the search
+    this.checkshownMarkers()
+
     return (
       <div className="main">
         <Route exact path="/"
@@ -181,7 +215,13 @@ class App extends Component {
         <Route exact path="/map" render={() => (
             <div className="map-screen">
               <MapHeader/>
-              <Map allCafes={this.state.allCafes} markersData={this.state.markersData} markerObjectsArray={this.markerObjectsArray}/>
+              <Map allCafes={this.state.allCafes}
+                markersData={this.state.markersData}
+                openInfoWindow={this.openInfoWindow}
+                updateQuery={this.updateQuery}
+                query={this.state.query}
+                shownMarker={this.shownMarker}
+                />
             </div>
             )}
         />
