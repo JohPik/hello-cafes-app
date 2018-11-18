@@ -4,6 +4,11 @@ import React, { Component } from 'react'
 
 class Map extends Component {
 
+// reset Query
+  componentWillUnmount(){
+    this.props.cleanQuery()
+  }
+
     render(){
 
         return(

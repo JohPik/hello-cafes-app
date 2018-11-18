@@ -108,7 +108,7 @@ class App extends Component {
 
   /** INIT MAP**/
 
-  markerObjectsArray = [] //Array of Marker Objects
+  // markerObjectsArray = [] //Array of Marker Objects
 
   initMap = () => {
 
@@ -145,7 +145,7 @@ class App extends Component {
             infowindow.open(map, marker);
           })
 
-      this.markerObjectsArray.push(customMarker) // push the marker to the Array of markers
+      // this.markerObjectsArray.push(customMarker) // push the marker to the Array of markers
 
       return customMarker // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
     })
@@ -178,10 +178,10 @@ class App extends Component {
 
      // Open InfoWindow when a link is cliked form the list
      openInfoWindow = (link) =>{
-       this.markerObjectsArray.map( marker => {
+       this.shownMarker.map( marker => {
          if (marker.id === link) {
-           window.google.maps.event.trigger(marker, 'click');
-           console.log("link is working", marker.id);
+           window.google.maps.event.trigger(marker, 'onclick');
+           console.log("link is working", marker.id , link);
          }
        })
      }
@@ -196,6 +196,10 @@ class App extends Component {
     } else {
       this.shownMarker = this.state.markersData
     }
+  }
+
+  cleanQuery = () => { // reset Query 
+    this.setState({ query: "" })
   }
 
 /********************* Render *********************/
@@ -221,6 +225,7 @@ class App extends Component {
                 updateQuery={this.updateQuery}
                 query={this.state.query}
                 shownMarker={this.shownMarker}
+                cleanQuery={this.cleanQuery}
                 />
             </div>
             )}
