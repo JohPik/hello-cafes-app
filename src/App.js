@@ -173,7 +173,8 @@ class App extends Component {
 
     // When Input Changes the query changes too
      updateQuery = (query) => {
-       this.setState({query: query.trim()})
+       this.setState({query: query.replace(/\s\s+/g, ' ')})
+
      }
 
      // Open InfoWindow when a link is cliked form the list
@@ -198,7 +199,7 @@ class App extends Component {
     }
   }
 
-  cleanQuery = () => { // reset Query 
+  cleanQuery = () => { // reset Query
     this.setState({ query: "" })
   }
 
