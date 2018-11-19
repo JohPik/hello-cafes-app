@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import './App.css'
 import Home from './Home'
 import Map from './Map'
-import { Route } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import MapHeader from './MapHeader'
+import PageNotFound from './PageNotFound'
 import escapeRegExp from 'escape-string-regexp'
 
 class App extends Component {
@@ -211,26 +212,29 @@ class App extends Component {
 
     return (
       <div className="main">
-        <Route exact path="/"
-               render={() => (
-                 <Home allCafes={this.state.allCafes}/>
-               )}
-        />
+        <Switch>
+          <Route exact path="/"
+                 render={() => (
+                   <Home allCafes={this.state.allCafes}/>
+                 )}
+          />
 
-        <Route exact path="/map" render={() => (
-            <div className="map-screen">
-              <MapHeader/>
-              <Map allCafes={this.state.allCafes}
-                markersData={this.state.markersData}
-                openInfoWindow={this.openInfoWindow}
-                updateQuery={this.updateQuery}
-                query={this.state.query}
-                shownMarker={this.shownMarker}
-                cleanQuery={this.cleanQuery}
-                />
-            </div>
-            )}
-        />
+          <Route exact path="/map" render={() => (
+              <div className="map-screen">
+                <MapHeader/>
+                <Map allCafes={this.state.allCafes}
+                  markersData={this.state.markersData}
+                  openInfoWindow={this.openInfoWindow}
+                  updateQuery={this.updateQuery}
+                  query={this.state.query}
+                  shownMarker={this.shownMarker}
+                  cleanQuery={this.cleanQuery}
+                  />
+              </div>
+              )}
+          />
+          <Route component={PageNotFound}/>
+        </Switch>
       </div>
     )
   }
