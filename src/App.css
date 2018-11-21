@@ -191,3 +191,18 @@ html, body, .main {
 /* #map{
   height: 100vh !important;
 } */
+
+
+input.search-café {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  margin-left: 25%;
+}
+
+h2.home-heading {
+    margin-top: 0;
+    padding: 20px;
+    margin: auto;
+    text-align: center;
+}

@@ -15,9 +15,10 @@ class Home extends Component {
     render(){
       return (
         <div className="home-main">
-            <p>Where are you?</p>
+            <h2 className="home-heading">Where are you?</h2>
             <input className="search-café" placeholder="Enter your location"/>
             <Link to={this.checkCafes()} className="search-input"><i className="fas fa-search"></i></Link>
+            <p className="cafes-numbers">We found <span>{this.props.shownMarker.length}</span> cafés</p>
         </div>
 
       )
