@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './App.css'
 import Home from './Home'
 import Map from './Map'
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import MapHeader from './MapHeader'
 import PageNotFound from './PageNotFound'
 import escapeRegExp from 'escape-string-regexp'
@@ -22,7 +22,7 @@ class App extends Component {
 
 
   /*** CALLING APIS ***/
-    componentWillMount(){
+    componentDidMount(){
         this.renderSearch()  // Call Gmap
     }
 
@@ -204,6 +204,29 @@ class App extends Component {
     this.setState({ query: "" })
   }
 
+  forceUpdateHandler(){
+    // this.forceUpdate();
+    console.log("I am called");
+  }
+
+/********************* Enable User Location *********************/
+
+userLoaction = () => {
+  var startPos;
+  var userLat;
+  var userLng;
+
+  var geoSuccess = function(position) {
+    startPos = position;
+    userLat = position.coords.latitude
+    userLng  = position.coords.longitude
+
+  this.getMapCenter = ("Near You", userLat, userLng)
+  };
+  navigator.geolocation.getCurrentPosition(geoSuccess);
+
+};
+
 /********************* Render *********************/
   render() {
 
@@ -215,24 +238,24 @@ class App extends Component {
         <Switch>
           <Route exact path="/"
                  render={() => (
-                   <Home allCafes={this.state.allCafes} shownMarker={this.shownMarker}/>
+                   <Home allCafes={this.state.allCafes} shownMarker={this.shownMarker} userLoaction={this.userLoaction}/>
                  )}
           />
 
           <Route exact path="/map" render={() => (
-              <div className="map-screen">
-                <MapHeader/>
-                <Map allCafes={this.state.allCafes}
-                  markersData={this.state.markersData}
-                  openInfoWindow={this.openInfoWindow}
-                  updateQuery={this.updateQuery}
-                  query={this.state.query}
-                  shownMarker={this.shownMarker}
-                  cleanQuery={this.cleanQuery}
-                  />
-              </div>
-              )}
-          />
+                <div className="map-screen">
+                  <MapHeader/>
+                  <Map allCafes={this.state.allCafes}
+                    markersData={this.state.markersData}
+                    openInfoWindow={this.openInfoWindow}
+                    updateQuery={this.updateQuery}
+                    query={this.state.query}
+                    shownMarker={this.shownMarker}
+                    cleanQuery={this.cleanQuery}
+                    />
+                </div>
+          )}/>
+
           <Route component={PageNotFound}/>
         </Switch>
       </div>
