@@ -212,20 +212,17 @@ class App extends Component {
 /********************* Enable User Location *********************/
 
 userLoaction = () => {
-  var startPos;
-  var userLat;
-  var userLng;
-
-  var geoSuccess = function(position) {
-    startPos = position;
-    userLat = position.coords.latitude
-    userLng  = position.coords.longitude
-
-  this.getMapCenter = ("Near You", userLat, userLng)
-  };
-  navigator.geolocation.getCurrentPosition(geoSuccess);
-
+  navigator.geolocation.getCurrentPosition(this.geoSuccess);
 };
+
+geoSuccess = (position) => {
+  let userLat = position.coords.latitude
+  let userLng  = position.coords.longitude
+  let place = "near you"
+  this.getMapCenter(place, userLat, userLng)
+  console.log("LAT :", userLat);
+  console.log("Lng :", userLng);
+}
 
 /********************* Render *********************/
   render() {
@@ -233,6 +230,7 @@ userLoaction = () => {
     //Filter through all the Markers to render only the ones that match the search
     this.checkshownMarkers()
 
+    console.log(this.state.mapCenter);
     return (
       <div className="main">
         <Switch>
