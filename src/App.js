@@ -60,7 +60,6 @@ class App extends Component {
             let lng = place.geometry.location.lng()
 
             this.getMapCenter(place.formatted_address, lat, lng)
-            this.activate4Square(lat, lng) // Call 4square
           })
         }
 
@@ -75,7 +74,9 @@ class App extends Component {
         this.setState({
           mapCenter: updatedMapCenter
         })
+        this.activate4Square(lat, lng) // Call 4square
       }
+
     //Create Markers
       createMarkers(cafes){
         let markersData = []
@@ -219,9 +220,10 @@ geoSuccess = (position) => {
   let userLat = position.coords.latitude
   let userLng  = position.coords.longitude
   let place = "near you"
+
   this.getMapCenter(place, userLat, userLng)
-  console.log("LAT :", userLat);
-  console.log("Lng :", userLng);
+  // console.log("LAT :", userLat);
+  // console.log("Lng :", userLng);
 }
 
 /********************* Render *********************/
