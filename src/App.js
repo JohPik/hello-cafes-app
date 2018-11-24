@@ -227,7 +227,7 @@ class App extends Component {
 
 /********************* Enable User Location *********************/
 
-userLoaction = () => {
+userLocation = () => {
   navigator.geolocation.getCurrentPosition(this.geoSuccess);
 }
 
@@ -255,7 +255,7 @@ geoSuccess = (position) => {
                  render={() => (
                    <Home  allCafes={this.state.allCafes}
                           activeMarkers={this.activeMarkers}
-                          userLoaction={this.userLoaction}
+                          userLocation={this.userLocation}
                     />
                  )}
           />
@@ -264,7 +264,6 @@ geoSuccess = (position) => {
                 <div className="map-screen">
                   <MapHeader/>
                   <Map  allCafes={this.state.allCafes}
-                        markersData={this.state.markersData}
                         openInfoWindow={this.openInfoWindow}
                         updateQuery={this.updateQuery}
                         query={this.state.query}
