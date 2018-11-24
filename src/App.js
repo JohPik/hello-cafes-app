@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import './App.css'
 import Home from './Home'
 import Map from './Map'
-import { Route, Switch, Redirect } from 'react-router-dom'
+// import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route, Switch } from 'react-router-dom'
 import MapHeader from './MapHeader'
 import PageNotFound from './PageNotFound'
 import escapeRegExp from 'escape-string-regexp'
@@ -110,50 +111,79 @@ class App extends Component {
 
   /** INIT MAP**/
 
-  // markerObjectsArray = [] //Array of Marker Objects
+  //markerObjectsArray = [] //Array of Marker Objects
+  markers = []
 
   initMap = () => {
-
     let map = new window.google.maps.Map(document.getElementById('map'), {
           style: { height: '100%', position: 'static', width: '100%' },
           center: {lat: this.state.mapCenter.lat, lng: this.state.mapCenter.lng},
           zoom: 16
         })
+    this.setMarker(map)
+    return map // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
+  }
 
-    this.shownMarker.map( customMarker => {
+  setMarker = (myMap) => {
+    this.activeMarkers.map( customMarker => {
+
       // create Markers
       let marker = new window.google.maps.Marker({
+            id: customMarker.id,
             position: {lat: customMarker.location.lat, lng: customMarker.location.lng},
-            map: map,
+            map: myMap,
             animation: window.google.maps.Animation.DROP
           })
 
+      this.markers.push(marker);
+
       // infowindow content
-      // let infowindowContent =  `${customMarker.name}`
       let infowindowContent =  `<div>
             <h1>${customMarker.name}</h1>
             <p>${customMarker.address}, ${customMarker.city}, ${customMarker.postalCode}, ${customMarker.state}, ${customMarker.country}</p>
       </div>`
-
 
       // create infowindow
       let infowindow = new window.google.maps.InfoWindow({
             content: infowindowContent
           })
 
-
       // open infowindow
-      marker.addListener('click', () => {
-            infowindow.open(map, marker);
-          })
+      window.google.maps.event.addListener(marker, 'click', function() {
+      //hideAllInfoWindows();
+      console.log(this.markers);
+      infowindow.open(myMap, marker);
+      })
 
-      // this.markerObjectsArray.push(customMarker) // push the marker to the Array of markers
+/** !!!!!! Need to work on that **/
+
+      let hideAllInfoWindows = () => {
+        this.markers.forEach( marker => {
+          console.log("marker: ", marker);
+            marker.infowindow.close(myMap, marker)
+          }
+        )
+      }
+
+      // marker.addListener('click', () => {
+      //       hideAllInfoWindows(myMap, marker)
+      //       infowindow.open(myMap, marker);
+      //     })
+
+
+      // function hideAllInfoWindows(map, marker){
+      //      this.markers.forEach(
+      //        function(marker){
+      //        marker.infowindow.close(map, marker)
+      //     })
+      //   }
 
       return customMarker // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
     })
 
-    return map // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
   }
+
+
 
 /********************* FOURSQUARE *********************/
     activate4Square = (lat, lng) => {
@@ -181,23 +211,24 @@ class App extends Component {
 
      // Open InfoWindow when a link is cliked form the list
      openInfoWindow = (link) =>{
-       this.shownMarker.map( marker => {
+       this.markers.map( marker => {
          if (marker.id === link) {
-           window.google.maps.event.trigger(marker, 'onclick');
-           console.log("link is working", marker.id , link);
+           window.google.maps.event.trigger(marker, 'click');
+           // console.log("link is working", marker.id , link);
          }
+        return marker // USELESS
        })
      }
 
-  shownMarker = [] // Array of Shown Markers
+  activeMarkers = [] // Array of Active Markers
 
   //Filter through all the Markers to render only the ones that match the search
-  checkshownMarkers = () => {
+  checkActiveMarkers = () => {
     if(this.state.query){
       const match = new RegExp(escapeRegExp(this.state.query), 'i')
-      this.shownMarker = this.state.markersData.filter((marker) =>   match.test(marker.name))
+      this.activeMarkers = this.state.markersData.filter((marker) =>   match.test(marker.name))
     } else {
-      this.shownMarker = this.state.markersData
+      this.activeMarkers = this.state.markersData
     }
   }
 
@@ -214,7 +245,7 @@ class App extends Component {
 
 userLoaction = () => {
   navigator.geolocation.getCurrentPosition(this.geoSuccess);
-};
+}
 
 geoSuccess = (position) => {
   let userLat = position.coords.latitude
@@ -222,36 +253,39 @@ geoSuccess = (position) => {
   let place = "near you"
 
   this.getMapCenter(place, userLat, userLng)
-  // console.log("LAT :", userLat);
-  // console.log("Lng :", userLng);
 }
 
 /********************* Render *********************/
   render() {
 
     //Filter through all the Markers to render only the ones that match the search
-    this.checkshownMarkers()
+    this.checkActiveMarkers()
 
-    console.log(this.state.mapCenter);
+    // console.log(this.state.mapCenter);
+    console.log(this.markers);
+
     return (
       <div className="main">
         <Switch>
           <Route exact path="/"
                  render={() => (
-                   <Home allCafes={this.state.allCafes} shownMarker={this.shownMarker} userLoaction={this.userLoaction}/>
+                   <Home  allCafes={this.state.allCafes}
+                          activeMarkers={this.activeMarkers}
+                          userLoaction={this.userLoaction}
+                    />
                  )}
           />
 
           <Route exact path="/map" render={() => (
                 <div className="map-screen">
                   <MapHeader/>
-                  <Map allCafes={this.state.allCafes}
-                    markersData={this.state.markersData}
-                    openInfoWindow={this.openInfoWindow}
-                    updateQuery={this.updateQuery}
-                    query={this.state.query}
-                    shownMarker={this.shownMarker}
-                    cleanQuery={this.cleanQuery}
+                  <Map  allCafes={this.state.allCafes}
+                        markersData={this.state.markersData}
+                        openInfoWindow={this.openInfoWindow}
+                        updateQuery={this.updateQuery}
+                        query={this.state.query}
+                        activeMarkers={this.activeMarkers}
+                        cleanQuery={this.cleanQuery}
                     />
                 </div>
           )}/>

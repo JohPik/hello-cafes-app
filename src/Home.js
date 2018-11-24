@@ -19,7 +19,7 @@ class Home extends Component {
             <button onClick={this.props.userLoaction}>Near You</button>
             <input className="search-café" placeholder="Enter your location"/>
             <Link to={this.checkCafes()} className="search-input"><i className="fas fa-search"></i></Link>
-            <p className="cafes-numbers">We found <span>{this.props.shownMarker.length}</span> cafés</p>
+            <p className="cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés</p>
         </div>
 
       )

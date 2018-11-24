@@ -23,14 +23,14 @@ class Map extends Component {
                     onChange={(e) => this.props.updateQuery(e.target.value)}
                       />
                     <i className="fas fa-search" aria-hidden="true"></i>
-                    <p className="cafes-numbers">We found <span>{this.props.shownMarker.length}</span> cafés</p>
+                    <p className="cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés</p>
 
-                      { this.props.shownMarker.length > 0 ?
+                      { this.props.activeMarkers.length > 0 ?
                       <div className="search-result">
                           <ul className="search-list">
-                            {this.props.shownMarker.map(cafe =>
+                            {this.props.activeMarkers.map(cafe =>
                               <li id= {cafe.id} key={cafe.id}>
-                                <a className="cafe-name" onClick={() =>  this.props.openInfoWindow(cafe.id)}>{cafe.name}</a>
+                                <button className="cafe-name" onClick={() =>  this.props.openInfoWindow(cafe.id)}>{cafe.name}</button>
                                 <p className="cafe-address" >
                                   {cafe.address}, {cafe.postalCode}, {cafe.state},<br/> {cafe.city}, {cafe.country}
                                 </p>
