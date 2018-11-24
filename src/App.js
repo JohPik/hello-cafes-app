@@ -21,7 +21,6 @@ class App extends Component {
       }
     }
 
-
   /*** CALLING APIS ***/
     componentDidMount(){
         this.renderSearch()  // Call Gmap
@@ -111,72 +110,58 @@ class App extends Component {
 
   /** INIT MAP**/
 
-  //markerObjectsArray = [] //Array of Marker Objects
-  markers = []
+  mapMarkers = []
 
   initMap = () => {
+    this.mapMarkers = [] // reset markers to 0
+
     let map = new window.google.maps.Map(document.getElementById('map'), {
           style: { height: '100%', position: 'static', width: '100%' },
           center: {lat: this.state.mapCenter.lat, lng: this.state.mapCenter.lng},
           zoom: 16
         })
     this.setMarker(map)
-    return map // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
   }
 
   setMarker = (myMap) => {
-    this.activeMarkers.map( customMarker => {
+    this.activeMarkers.map( customMarker => {  //!!!!!!! Changed map to forEcah !!!!!!
+
+      // infowindow content
+      let infowindowContent =
+      `<div>
+            <h1>${customMarker.name}</h1>
+            <p>${customMarker.address}, ${customMarker.city}, ${customMarker.postalCode}, ${customMarker.state}, ${customMarker.country}</p>
+      </div>`
+
+      // create infowindow
+      let myInfoWindow = new window.google.maps.InfoWindow({
+            content: infowindowContent
+          })
 
       // create Markers
       let marker = new window.google.maps.Marker({
             id: customMarker.id,
             position: {lat: customMarker.location.lat, lng: customMarker.location.lng},
             map: myMap,
-            animation: window.google.maps.Animation.DROP
+            animation: window.google.maps.Animation.DROP,
+            infowindow: myInfoWindow
           })
 
-      this.markers.push(marker);
-
-      // infowindow content
-      let infowindowContent =  `<div>
-            <h1>${customMarker.name}</h1>
-            <p>${customMarker.address}, ${customMarker.city}, ${customMarker.postalCode}, ${customMarker.state}, ${customMarker.country}</p>
-      </div>`
-
-      // create infowindow
-      let infowindow = new window.google.maps.InfoWindow({
-            content: infowindowContent
-          })
+      this.mapMarkers.push(marker);
 
       // open infowindow
-      window.google.maps.event.addListener(marker, 'click', function() {
-      //hideAllInfoWindows();
-      console.log(this.markers);
-      infowindow.open(myMap, marker);
+      window.google.maps.event.addListener(marker, 'click', () => {
+      hideAllInfoWindows(myMap); // Close infoWindow if open
+      myInfoWindow.open(myMap, marker);
       })
 
-/** !!!!!! Need to work on that **/
-
-      let hideAllInfoWindows = () => {
-        this.markers.forEach( marker => {
-          console.log("marker: ", marker);
-            marker.infowindow.close(myMap, marker)
+      // close infowindow
+      let hideAllInfoWindows = (map) => {
+        this.mapMarkers.forEach( (marker) => {
+          marker.infowindow.close(map, marker)
           }
         )
       }
-
-      // marker.addListener('click', () => {
-      //       hideAllInfoWindows(myMap, marker)
-      //       infowindow.open(myMap, marker);
-      //     })
-
-
-      // function hideAllInfoWindows(map, marker){
-      //      this.markers.forEach(
-      //        function(marker){
-      //        marker.infowindow.close(map, marker)
-      //     })
-      //   }
 
       return customMarker // Useless just to get rid  of warning message bloody Console :( Grrrrrrr
     })
@@ -210,12 +195,11 @@ class App extends Component {
      }
 
      // Open InfoWindow when a link is cliked form the list
-     openInfoWindow = (link) =>{
-       this.markers.map( marker => {
+     openInfoWindow = (link) => {
+       this.mapMarkers.map( marker => {
          if (marker.id === link) {
            window.google.maps.event.trigger(marker, 'click');
-           // console.log("link is working", marker.id , link);
-         }
+          }
         return marker // USELESS
        })
      }
@@ -262,7 +246,7 @@ geoSuccess = (position) => {
     this.checkActiveMarkers()
 
     // console.log(this.state.mapCenter);
-    console.log(this.markers);
+    // console.log(this.markers);
 
     return (
       <div className="main">
@@ -298,7 +282,7 @@ geoSuccess = (position) => {
 }
 
 // Function to Create Gmap Script Tag
-function loadGMap (url){
+let loadGMap = url => {
   let index = window.document.getElementsByTagName("script")[0]
   let script = window.document.createElement("script")
   script.className = "GMap"
