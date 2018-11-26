@@ -41,7 +41,7 @@ class Home extends Component {
               <h2 className="home-heading">Search Cafés from your</h2>
               <input className="search-café" placeholder="Enter your location"/>
               <Link to={this.checkCafes()} className="search-input"><i className="fas fa-search"></i></Link>
-              <p className="cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés</p>
+              <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés</p>
             </Fragment>
           )
         }

@@ -5,7 +5,9 @@ class HomeHeader extends Component {
 
     render(){
         return(
-              <div>holla</div>
+          <div className="heading">
+            <h1 tabIndex="1">Hello<i className="fas fa-coffee"></i>Cafés</h1>
+          </div>
         )
     }
   }

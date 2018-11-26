@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 function MapHeader(props){
   return(
-    <div className="heading">
+    <div className="map-heading heading">
       <Link to="/" className="home">
         <i className="fas fa-arrow-circle-left"></i>
       </Link>

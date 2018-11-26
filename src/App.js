@@ -1,10 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './App.css'
 import Home from './Home'
 import Map from './Map'
-// import { Route, Switch, Redirect } from 'react-router-dom'
-import { Route, Switch } from 'react-router-dom'
 import MapHeader from './MapHeader'
+import HomeHeader from './HomeHeader'
+
+import { Route, Switch } from 'react-router-dom'
 import PageNotFound from './PageNotFound'
 import escapeRegExp from 'escape-string-regexp'
 
@@ -253,10 +254,13 @@ geoSuccess = (position) => {
         <Switch>
           <Route exact path="/"
                  render={() => (
-                   <Home  allCafes={this.state.allCafes}
-                          activeMarkers={this.activeMarkers}
-                          userLocation={this.userLocation}
-                    />
+                   <Fragment>
+                     <HomeHeader/>
+                     <Home  allCafes={this.state.allCafes}
+                            activeMarkers={this.activeMarkers}
+                            userLocation={this.userLocation}
+                      />
+                  </Fragment>
                  )}
           />
 
