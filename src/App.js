@@ -265,7 +265,7 @@ geoSuccess = (position) => {
           />
 
           <Route exact path="/map" render={() => (
-                <div className="map-screen">
+                <div className="map-page">
                   <MapHeader/>
                   <Map  allCafes={this.state.allCafes}
                         openInfoWindow={this.openInfoWindow}

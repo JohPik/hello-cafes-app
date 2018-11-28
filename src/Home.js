@@ -25,7 +25,7 @@ class Home extends Component {
       return (
         <div className="home-main">
 
-        { !this.state.citySearch ? (
+        { this.state.citySearch ? (
           <Fragment>
             <h2 className="home-heading">Search Cafés from your</h2>
             <div className="home-buttons">
