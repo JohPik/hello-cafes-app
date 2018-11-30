@@ -1,0 +1,34 @@
+<!-- Home  Template -->
+
+<div class="home-page">
+
+  <HEADER> <!-- STATIC -->
+   <div class="home-heading">
+     <h1>Hello Cafe</h1>
+   </div>
+   <div class="home-subheading">
+     <<h2>Search Cafe in</h2>
+   </div>
+  </HEADER>
+
+  <BUTTONS> <!--  Interactive -->
+    <div class="home-location-selection">
+      <button class="home-button user-location"></button>
+      <span>or</span>
+      <button class="home-button user-city"></button>
+    </div>
+  </BUTTONS>
+
+  <!-- OR -->
+
+  <!-- AUTOCOMPLETE -->
+  <AUTOCOMPLETE>
+    <div class="home-autoComplete">
+       <button class="get-back"></button>
+       <div class="home-autoComplete-label"></div>
+       <input type="text" name="" value="">
+    </div>
+  </AUTOCOMPLETE>
+
+
+</div>
