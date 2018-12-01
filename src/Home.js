@@ -25,7 +25,7 @@ class Home extends Component {
       return (
         <div className="home-main">
 
-        { this.state.citySearch ? (
+        { !this.state.citySearch ? (
           <Fragment>
             <div className="home-buttons">
               <button onClick={this.props.userLocation} className="home-buttons">Near You</button>

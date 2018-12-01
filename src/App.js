@@ -252,9 +252,6 @@ geoSuccess = (position) => {
     //Filter through all the Markers to render only the ones that match the search
     this.checkActiveMarkers()
 
-    // console.log(this.state.mapCenter);
-    // console.log(this.markers);
-
     return (
       <div className="main">
         <Switch>
@@ -265,7 +262,12 @@ geoSuccess = (position) => {
                      <Home  allCafes={this.state.allCafes}
                             userLocation={this.userLocation}
                       />
-                    <HomeResults activeMarkers={this.activeMarkers}/>
+                    { this.activeMarkers.length > 0 ?
+                      <HomeResults activeMarkers={this.activeMarkers}/>
+                      :
+                      <p>Please click one of the options above</p>
+                    }
+
                   </div>
                  )}
           />
