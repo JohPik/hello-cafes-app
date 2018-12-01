@@ -27,7 +27,6 @@ class Home extends Component {
 
         { this.state.citySearch ? (
           <Fragment>
-            <h2 className="home-heading">Search Cafés from your</h2>
             <div className="home-buttons">
               <button onClick={this.props.userLocation} className="home-buttons">Near You</button>
               <span>or</span>
@@ -38,10 +37,8 @@ class Home extends Component {
 
           : (
             <Fragment>
-              <h2 className="home-heading">Search Cafés from your</h2>
               <input className="search-café" placeholder="Enter your location"/>
               <Link to={this.checkCafes()} className="search-input"><i className="fas fa-search"></i></Link>
-              <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés</p>
             </Fragment>
           )
         }

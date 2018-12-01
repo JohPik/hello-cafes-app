@@ -1,5 +1,5 @@
 
-/* General */
+/******* GENERAL *******/
 html, body, .main {
   font-family: Mali, cursive;
   height: 100%;
@@ -7,13 +7,44 @@ html, body, .main {
   padding: 0;
 }
 
-.home-main {
+
+/******* HOME PAGE *******/
+
+.home-page {
     background-image: url("./images/Coffee-Background-Picture.jpg");
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
     height: 100vh;
 }
+
+.home-heading, .home-subheading {
+   margin-top: 0;
+   padding: 20px;
+   margin: auto;
+   text-align: center;
+}
+
+a.home {
+   position: absolute;
+   left: 20px;
+   color: #66FF66;
+}
+
+/* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
+.pac-container:after {
+   background-image: none !important;
+   height: 0px;
+}
+
+input.search-map-café {
+ width: 50%;
+ margin: 0 auto;
+ padding: 20px;
+ margin-left: 25%;
+}
+
+
 
 /* Heading */
 
@@ -175,29 +206,3 @@ html, body, .main {
   }
 
  }
-
- a.home {
-    position: absolute;
-    left: 20px;
-    color: #66FF66;
-}
-
-/* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
-.pac-container:after {
-    background-image: none !important;
-    height: 0px;
-}
-
-input.search-map-café {
-  width: 50%;
-  margin: 0 auto;
-  padding: 20px;
-  margin-left: 25%;
-}
-
-h2.home-heading {
-    margin-top: 0;
-    padding: 20px;
-    margin: auto;
-    text-align: center;
-}

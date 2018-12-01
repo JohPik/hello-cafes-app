@@ -1,13 +1,17 @@
-import React, { Component } from 'react'
-
+import React, { Component, Fragment } from 'react'
 
 class HomeHeader extends Component {
 
     render(){
         return(
-          <div className="heading">
-            <h1 tabIndex="1">Hello<i className="fas fa-coffee"></i>Cafés</h1>
-          </div>
+          <Fragment>
+            <div className="home-heading">
+              <h1>Hello<i className="fas fa-coffee"></i>Cafés</h1>
+            </div>
+            <div className="home-subheading">
+              <h2>Search Cafe in</h2>
+            </div>
+          </Fragment>
         )
     }
   }

@@ -1,9 +1,14 @@
-import React, { Component, Fragment } from 'react'
+import React, { Component } from 'react'
 import './App.css'
-import Home from './Home'
-import Map from './Map'
-import MapHeader from './MapHeader'
+
 import HomeHeader from './HomeHeader'
+import Home from './Home'
+import HomeResults from './HomeResults'
+
+import MapHeader from './MapHeader'
+import Map from './Map'
+
+
 
 import { Route, Switch } from 'react-router-dom'
 import PageNotFound from './PageNotFound'
@@ -229,6 +234,7 @@ class App extends Component {
 /********************* Enable User Location *********************/
 
 userLocation = () => {
+  // this.setState({ }) DO SOMETHING ABOUT THE STATE OF uselocation activated
   navigator.geolocation.getCurrentPosition(this.geoSuccess);
 }
 
@@ -254,13 +260,13 @@ geoSuccess = (position) => {
         <Switch>
           <Route exact path="/"
                  render={() => (
-                   <Fragment>
+                   <div className="home-page">
                      <HomeHeader/>
                      <Home  allCafes={this.state.allCafes}
-                            activeMarkers={this.activeMarkers}
                             userLocation={this.userLocation}
                       />
-                  </Fragment>
+                    <HomeResults activeMarkers={this.activeMarkers}/>
+                  </div>
                  )}
           />
 
