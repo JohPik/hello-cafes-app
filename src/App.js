@@ -222,15 +222,6 @@ class App extends Component {
     }
   }
 
-  cleanQuery = () => { // reset Query
-    this.setState({ query: "" })
-  }
-
-  forceUpdateHandler(){
-    // this.forceUpdate();
-    console.log("I am called");
-  }
-
 /********************* Enable User Location *********************/
 
 userLocation = () => {
@@ -244,6 +235,26 @@ geoSuccess = (position) => {
   let place = "near you"
 
   this.getMapCenter(place, userLat, userLng)
+}
+/********************* Reset App *********************/
+
+resetApp = () => {
+
+  let allCafes= []
+  let markersData= []
+  let query= ""
+  let mapCenter= {
+    name: "",
+    lat: "",
+    lng: ""
+    }
+
+  this.setState({
+    allCafes,
+    markersData,
+    query,
+    mapCenter
+  })
 }
 
 /********************* Render *********************/
@@ -280,7 +291,7 @@ geoSuccess = (position) => {
                         updateQuery={this.updateQuery}
                         query={this.state.query}
                         activeMarkers={this.activeMarkers}
-                        cleanQuery={this.cleanQuery}
+                        resetApp={this.resetApp}
                     />
                 </div>
           )}/>

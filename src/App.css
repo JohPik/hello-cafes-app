@@ -16,6 +16,7 @@ html, body, .main {
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
     height: 100vh;
+    text-align: center;
 }
 
 .home-heading, .home-subheading {

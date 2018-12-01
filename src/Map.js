@@ -6,7 +6,7 @@ class Map extends Component {
 
 // reset Query
   componentWillUnmount(){
-    this.props.cleanQuery()
+    this.props.resetApp()
   }
 
     render(){

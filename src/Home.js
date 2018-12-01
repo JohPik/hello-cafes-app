@@ -25,18 +25,19 @@ class Home extends Component {
       return (
         <div className="home-main">
 
-        { !this.state.citySearch ? (
+        { this.state.citySearch ? (
           <Fragment>
             <div className="home-buttons">
-              <button onClick={this.props.userLocation} className="home-buttons">Near You</button>
+              <button onClick={this.props.userLocation} className="home-button user-location">Your Location</button>
               <span>or</span>
-              <button onClick={this.ActivateCitySearch} className="home-buttons">City</button>
+              <button onClick={this.ActivateCitySearch} className="home-button user-city">Your City</button>
             </div>
           </Fragment>
         )
 
           : (
             <Fragment>
+              <i className="fas fa-arrow-circle-left" onClick={() => this.setState({ citySearch : false })}></i>
               <input className="search-café" placeholder="Enter your location"/>
               <Link to={this.checkCafes()} className="search-input"><i className="fas fa-search"></i></Link>
             </Fragment>
