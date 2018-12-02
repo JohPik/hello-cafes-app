@@ -260,12 +260,14 @@ resetApp = () => {
     lat: "",
     lng: ""
     }
+  let citySearch = false
 
   this.setState({
     allCafes,
     markersData,
     query,
-    mapCenter
+    mapCenter,
+    citySearch
   })
 }
 
