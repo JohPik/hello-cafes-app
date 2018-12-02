@@ -24,7 +24,8 @@ class App extends Component {
       name: "",
       lat: "",
       lng: ""
-      }
+      },
+      citySearch : false
     }
 
   /*** CALLING APIS ***/
@@ -51,7 +52,9 @@ class App extends Component {
       if(window.location.href.indexOf("map") > -1){
         this.initMap()
       } else {
-        this.autoComplete()
+        if (this.state.citySearch) {
+            this.autoComplete()
+        }
       }
     }
 
@@ -68,6 +71,15 @@ class App extends Component {
             this.getMapCenter(place.formatted_address, lat, lng)
           })
         }
+
+        activateCitySearch = () => {
+          this.setState({ citySearch : true })
+        }
+
+        deActivateCitySearch = () => {
+          this.setState({ citySearch : false })
+        }
+
 
   /** BEFORE RENDERING MAP **/
     // Define Map Center
@@ -271,6 +283,9 @@ resetApp = () => {
                    <div className="home-page">
                      <HomeHeader/>
                      <Home  allCafes={this.state.allCafes}
+                            citySearch={this.state.citySearch}
+                            activateCitySearch={this.activateCitySearch}
+                            deActivateCitySearch={this.deActivateCitySearch}
                             userLocation={this.userLocation}
                       />
                     { this.activeMarkers.length > 0 ?

@@ -2,14 +2,7 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 class Home extends Component {
-  state = {
-    citySearch : false
-  }
 
-  ActivateCitySearch = () => {
-    this.setState({ citySearch : true })
-    console.log(this.state);
-  }
     checkCafes = () => {
       if (this.props.allCafes.length < 1) {
         let url = "/"
@@ -21,23 +14,22 @@ class Home extends Component {
     }
 
     render(){
-
       return (
         <div className="home-main">
 
-        { this.state.citySearch ? (
+        { !this.props.citySearch ? (
           <Fragment>
             <div className="home-buttons">
               <button onClick={this.props.userLocation} className="home-button user-location">Your Location</button>
               <span>or</span>
-              <button onClick={this.ActivateCitySearch} className="home-button user-city">Your City</button>
+              <button onClick={this.props.activateCitySearch} className="home-button user-city">Your City</button>
             </div>
           </Fragment>
         )
 
           : (
             <Fragment>
-              <i className="fas fa-arrow-circle-left" onClick={() => this.setState({ citySearch : false })}></i>
+              <i className="fas fa-arrow-circle-left" onClick={() => this.props.deActivateCitySearch()}></i>
               <input className="search-café" placeholder="Enter your location"/>
               <Link to={this.checkCafes()} className="search-input"><i className="fas fa-search"></i></Link>
             </Fragment>
