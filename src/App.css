@@ -10,6 +10,7 @@ html, body, .main {
 
 /******* HOME PAGE *******/
 
+/*General*/
 .home-page {
     background-image: url("./images/Coffee-Background-Picture.jpg");
     background-position: center; /* Center the image */
@@ -55,11 +56,10 @@ html, body, .main {
 }
 
 .home-buttons button{
- transition: box-shadow .20s;  
+ transition: box-shadow .20s;
 }
 
 .home-buttons button:hover {
-  /* background-color: pink; */
     box-shadow: 6px 0px 14px 0px #00000042;
 }
 
@@ -70,7 +70,9 @@ html, body, .main {
 .home-page p{
   font-size: 125%;
   color: #060659;
+  margin: 0;
 }
+
 
 .home-cafes-numbers span {
   color: #F22C63;
@@ -98,14 +100,17 @@ button.user-city {
   background-color:  #F22C63;
 }
 
-
-
-
-a.home {
-   position: absolute;
-   left: 20px;
-   color: #66FF66;
+input.search-café {
+    padding: 10px;
+    margin: 20px 10px;
+    width: 400px;
+    height: 25px;
+    font-family: mali;
+    font-size: 150%;
+    color: #060659;
 }
+
+
 
 /* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
 .pac-container:after {
@@ -120,7 +125,7 @@ input.search-map-café {
  margin-left: 25%;
 }
 
-
+/********** MORE MAP SHIT ************/
 
 /* Heading */
 
