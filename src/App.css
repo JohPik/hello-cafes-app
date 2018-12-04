@@ -20,11 +20,86 @@ html, body, .main {
 }
 
 .home-heading, .home-subheading {
+   font-family: Mali, cursive;
+   color: #060659;
    margin-top: 0;
-   padding: 20px;
    margin: auto;
    text-align: center;
 }
+
+.home-heading {
+    padding-top: 30vh;
+    font-size: 200%;
+}
+
+
+.home-heading h1 {
+  margin: 0;
+  font-size: 200%;
+}
+
+.home-heading i {
+  color: #F22C63;
+  margin: 0 10px;
+}
+
+.home-subheading h2 {
+  margin: 30px 0 0 0;
+  font-size: 200%;
+}
+
+.home-buttons {
+  margin: 30px 0 0 0;
+  font-weight: bold;
+  color: #060659;
+}
+
+.home-buttons button{
+ transition: box-shadow .20s;  
+}
+
+.home-buttons button:hover {
+  /* background-color: pink; */
+    box-shadow: 6px 0px 14px 0px #00000042;
+}
+
+.home-buttons span{
+  font-size: 125%;
+}
+
+.home-page p{
+  font-size: 125%;
+  color: #060659;
+}
+
+.home-cafes-numbers span {
+  color: #F22C63;
+  font-weight: bold;
+}
+
+
+button.home-button {
+    font-size: 125%;
+    font-family: mali;
+    color: #060659;
+    font-weight: bold;
+    padding: 8px 25px;
+    margin: 0 30px;
+    width: 300px;
+    border: 0;
+    box-shadow: 0px 6px 14px 0px #00000042;
+}
+
+button.user-location {
+  background-color: #06F5F4;
+}
+
+button.user-city {
+  background-color:  #F22C63;
+}
+
+
+
 
 a.home {
    position: absolute;
