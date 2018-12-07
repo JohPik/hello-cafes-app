@@ -9,7 +9,13 @@ class HomeHeader extends Component {
               <h1>Hello<i className="fas fa-coffee"></i>Cafés</h1>
             </div>
             <div className="home-subheading">
-              <h2>Search Cafés in</h2>
+
+                { !this.props.citySearch ?
+                  <h2>Search Cafés in</h2>
+                  :
+                  <h2>Search Cafés in <span>Your City</span></h2>
+                }
+
             </div>
           </Fragment>
         )

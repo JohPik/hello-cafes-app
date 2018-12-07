@@ -283,18 +283,21 @@ resetApp = () => {
           <Route exact path="/"
                  render={() => (
                    <div className="home-page">
-                     <HomeHeader/>
+                     <HomeHeader citySearch={this.state.citySearch}/>
                      <Home  allCafes={this.state.allCafes}
                             citySearch={this.state.citySearch}
                             activateCitySearch={this.activateCitySearch}
                             deActivateCitySearch={this.deActivateCitySearch}
                             userLocation={this.userLocation}
                       />
-                    { this.activeMarkers.length > 0 ?
-                      <HomeResults activeMarkers={this.activeMarkers}/>
-                      :
-                      <p>Please click one of the options above</p>
-                    }
+                      { this.activeMarkers.length > 0 ?
+                        <HomeResults activeMarkers={this.activeMarkers}/>
+                        :
+                        this.state.citySearch ?
+                          <span></span>
+                          :
+                          <p>Please click one of the options above</p>
+                      }
 
                   </div>
                  )}
