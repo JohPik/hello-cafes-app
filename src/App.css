@@ -50,7 +50,7 @@ html, body, .main {
 }
 
 .home-buttons {
-  margin: 30px 0 0 0;
+  margin: 20px 0;
   font-weight: bold;
   color: #060659;
 }
@@ -99,7 +99,7 @@ button.user-location {
 button.user-city {
   background-color:  #F22C63;
 }
-
+/*
 input.search-café {
     padding: 10px;
     margin: 20px 10px;
@@ -108,8 +108,18 @@ input.search-café {
     font-family: mali;
     font-size: 150%;
     color: #060659;
-}
+} */
 
+input.search-café {
+  border: 1px lightgrey solid;
+    padding: 8px 10px;
+    margin: 20px 30px;
+    width: 400px;
+    height: 24px;
+    font-family: mali;
+    font-size: 125%;
+    color: #060659;
+}
 
 
 /* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
