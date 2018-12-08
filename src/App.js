@@ -25,7 +25,8 @@ class App extends Component {
       lat: "",
       lng: ""
       },
-      citySearch : false
+      citySearch : false,
+      curentLocation : false
     }
 
   /*** CALLING APIS ***/
@@ -43,7 +44,7 @@ class App extends Component {
     /** LOADING Gmap**/
     // Load Gmap Script and call callback function
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDS0pzpMW_qNo6xMb8d0I69zukaOsC0Lx0&libraries=places&callback=activateGMap")
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8JybBcqZkubpn9BuEdE_0IayHRPPfVg&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
@@ -60,6 +61,7 @@ class App extends Component {
 
     /** AUTOCOMPLETE**/
     autoComplete = () => {
+      console.log("Hello");
       let input = document.querySelector(".search-café")
       const options = {types: ['(cities)']};
       let autocomplete = new window.google.maps.places.Autocomplete(input, options)
@@ -69,15 +71,22 @@ class App extends Component {
             let lng = place.geometry.location.lng()
 
             this.getMapCenter(place.formatted_address, lat, lng)
+            console.log("holla");
+            return
           })
+          return
         }
 
         activateCitySearch = () => {
-          this.setState({ citySearch : true })
+          let allCafes= []
+          let markersData= []
+          let citySearch= true
+          this.setState({ allCafes, markersData, citySearch})
         }
 
         deActivateCitySearch = () => {
           this.setState({ citySearch : false })
+          this.resetApp()
         }
 
 
@@ -238,7 +247,8 @@ class App extends Component {
 
 userLocation = () => {
   // this.setState({ }) DO SOMETHING ABOUT THE STATE OF uselocation activated
-  navigator.geolocation.getCurrentPosition(this.geoSuccess);
+  navigator.geolocation.getCurrentPosition(this.geoSuccess)
+  this.setState({ curentLocation: true})
 }
 
 geoSuccess = (position) => {
@@ -261,13 +271,15 @@ resetApp = () => {
     lng: ""
     }
   let citySearch = false
+  let curentLocation = false
 
   this.setState({
     allCafes,
     markersData,
     query,
     mapCenter,
-    citySearch
+    citySearch,
+    curentLocation
   })
 }
 
@@ -290,15 +302,7 @@ resetApp = () => {
                             deActivateCitySearch={this.deActivateCitySearch}
                             userLocation={this.userLocation}
                       />
-                      { this.activeMarkers.length > 0 ?
-                        <HomeResults activeMarkers={this.activeMarkers}/>
-                        :
-                        this.state.citySearch ?
-                          <span></span>
-                          :
-                          <p>Please click one of the options above</p>
-                      }
-
+                    <HomeResults activeMarkers={this.activeMarkers} citySearch={this.state.citySearch} curentLocation={this.state.curentLocation} mapCenter={this.state.mapCenter}/>
                   </div>
                  )}
           />
