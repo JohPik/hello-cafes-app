@@ -7,6 +7,7 @@ import HomeResults from './HomeResults'
 
 import MapHeader from './MapHeader'
 import Map from './Map'
+import MapMain from './MapMain'
 
 
 
@@ -308,18 +309,15 @@ resetApp = () => {
                  )}
           />
 
-          <Route exact path="/map" render={() => (
-                <div className="map-page">
-                  <MapHeader/>
-                  <Map  allCafes={this.state.allCafes}
-                        openInfoWindow={this.openInfoWindow}
-                        updateQuery={this.updateQuery}
-                        query={this.state.query}
-                        activeMarkers={this.activeMarkers}
-                        resetApp={this.resetApp}
-                    />
-                </div>
-          )}/>
+          <Route exact path="/map"  component={() =>
+            <Map  allCafes={this.state.allCafes}
+                  openInfoWindow={this.openInfoWindow}
+                  updateQuery={this.updateQuery}
+                  query={this.state.query}
+                  activeMarkers={this.activeMarkers}
+                  resetApp={this.resetApp}
+            />}
+          />
 
           <Route component={PageNotFound}/>
         </Switch>
