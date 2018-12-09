@@ -5,14 +5,11 @@ import HomeHeader from './HomeHeader'
 import Home from './Home'
 import HomeResults from './HomeResults'
 
-import MapHeader from './MapHeader'
 import Map from './Map'
-import MapMain from './MapMain'
-
+import PageNotFound from './PageNotFound'
 
 
 import { Route, Switch } from 'react-router-dom'
-import PageNotFound from './PageNotFound'
 import escapeRegExp from 'escape-string-regexp'
 
 class App extends Component {
