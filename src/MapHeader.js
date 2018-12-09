@@ -8,7 +8,7 @@ function MapHeader(props){
       <Link to="/" className="home">
         <i className="fas fa-arrow-circle-left"></i>
       </Link>
-      <h1 tabIndex="1">Hello<i className="fas fa-coffee"></i>Cafés</h1>
+      <h1>Hello<i className="fas fa-coffee"></i>Cafés</h1>
     </div>
   )
 }

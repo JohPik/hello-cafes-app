@@ -29,7 +29,7 @@ class Home extends Component {
 
           : (
             <Fragment>
-              <i className="fas fa-arrow-circle-left" onClick={() => this.props.deActivateCitySearch()}></i>
+              <i className="fas fa-arrow-circle-left" onClick={() => this.props.deActivateCitySearch()}>Previous</i>
               <input className="search-café" placeholder="Enter your location"/>
               <Link to={this.checkCafes()} className="search-input"><i className="fas fa-search"></i></Link>
             </Fragment>

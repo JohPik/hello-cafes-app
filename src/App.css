@@ -57,6 +57,7 @@ html, body, .main {
 
 .home-buttons button{
  transition: box-shadow .20s;
+ border-radius: 20px
 }
 
 .home-buttons button:hover {
@@ -151,6 +152,7 @@ input.search-map-café {
 .map-heading h1 {
   margin: 0;
   font-size: 200%;
+  display: inline;
 }
 
 .map-heading i{

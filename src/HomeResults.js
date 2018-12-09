@@ -13,7 +13,7 @@ class HomeResults extends Component {
                   :
                     <p>Please click one of the options above</p>
               : this.props.activeMarkers.length > 0 ?
-                <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés in <span>{this.props.mapCenter.name}</span></p>
+                    <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés in <span>{this.props.mapCenter.name}</span></p>
                   :
                 <span></span>
             }

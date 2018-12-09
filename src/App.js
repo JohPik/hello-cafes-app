@@ -286,6 +286,7 @@ resetApp = () => {
 /********************* Render *********************/
   render() {
 
+    console.log("window", window.location.href);
     //Filter through all the Markers to render only the ones that match the search
     this.checkActiveMarkers()
 
