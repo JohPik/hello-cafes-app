@@ -10,7 +10,7 @@ import Map from './Map'
 
 
 
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import PageNotFound from './PageNotFound'
 import escapeRegExp from 'escape-string-regexp'
 
@@ -26,7 +26,8 @@ class App extends Component {
       lng: ""
       },
       citySearch : false,
-      curentLocation : false
+      curentLocation : false,
+      mapReady : false
     }
 
   /*** CALLING APIS ***/
@@ -44,7 +45,7 @@ class App extends Component {
     /** LOADING Gmap**/
     // Load Gmap Script and call callback function
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDd8JybBcqZkubpn9BuEdE_0IayHRPPfVg&libraries=places&callback=activateGMap")
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOEoWbQ3oiO5HM56q_Dmokg20MYRBglTc&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
@@ -61,7 +62,6 @@ class App extends Component {
 
     /** AUTOCOMPLETE**/
     autoComplete = () => {
-      console.log("Hello");
       let input = document.querySelector(".search-café")
       const options = {types: ['(cities)']};
       let autocomplete = new window.google.maps.places.Autocomplete(input, options)
@@ -71,7 +71,6 @@ class App extends Component {
             let lng = place.geometry.location.lng()
 
             this.getMapCenter(place.formatted_address, lat, lng)
-            console.log("holla");
             return
           })
           return
@@ -133,6 +132,7 @@ class App extends Component {
           return markersData.push(marker)
         })
         this.setState({ markersData })
+        this.setState({mapReady: true})
       }
 
   /** INIT MAP**/
@@ -283,15 +283,18 @@ resetApp = () => {
   })
 }
 
+/********************* Manage Routing and REdirect *********************/
+
 /********************* Render *********************/
   render() {
 
-    console.log("window", window.location.href);
     //Filter through all the Markers to render only the ones that match the search
     this.checkActiveMarkers()
 
     return (
       <div className="main">
+
+
         <Switch>
           <Route exact path="/"
                  render={() => (
@@ -303,28 +306,39 @@ resetApp = () => {
                             deActivateCitySearch={this.deActivateCitySearch}
                             userLocation={this.userLocation}
                       />
-                    <HomeResults activeMarkers={this.activeMarkers} citySearch={this.state.citySearch} curentLocation={this.state.curentLocation} mapCenter={this.state.mapCenter}/>
+                    <HomeResults activeMarkers={this.activeMarkers} citySearch={this.state.citySearch} curentLocation={this.state.curentLocation} mapCenter={this.state.mapCenter} ActivateMapReady={this.ActivateMapReady}/>
                   </div>
                  )}
           />
 
           <Route exact path="/map" render={() => (
-                <div className="map-page">
-                  <MapHeader/>
-                  <Map  allCafes={this.state.allCafes}
-                        openInfoWindow={this.openInfoWindow}
-                        updateQuery={this.updateQuery}
-                        query={this.state.query}
-                        activeMarkers={this.activeMarkers}
-                        resetApp={this.resetApp}
-                    />
-                </div>
-          )}/>
+                 !this.state.mapReady ?
+                 (<Redirect to="/"/>)
+                  :
+                  (<div className="map-page">
+                    <MapHeader disableMapReady={this.disableMapReady}/>
+                    <Map  allCafes={this.state.allCafes}
+                          openInfoWindow={this.openInfoWindow}
+                          updateQuery={this.updateQuery}
+                          query={this.state.query}
+                          activeMarkers={this.activeMarkers}
+                          resetApp={this.resetApp}
+                      />
+                  </div>)
+              )}/>
 
           <Route component={PageNotFound}/>
+
         </Switch>
+
+
+
+
+
+
       </div>
     )
+
   }
 }
 
