@@ -1,13 +1,13 @@
 import React, { Component, Fragment } from 'react'
+import { Redirect } from 'react-router-dom'
 
 class HomeResults extends Component {
 
     render(){
-      console.log(this.props);
+      console.log("HOME RESULTS PROPS", this.props);
         return(
           <Fragment>
-            {
-              !this.props.citySearch ?
+            {!this.props.citySearch ?
                   this.props.activeMarkers.length > 0 && this.props.curentLocation ?
                     <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés <span>{this.props.mapCenter.name}</span></p>
                   :
@@ -17,7 +17,6 @@ class HomeResults extends Component {
                   :
                 <span></span>
             }
-
           </Fragment>
         )
     }
