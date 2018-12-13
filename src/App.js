@@ -45,7 +45,7 @@ class App extends Component {
     /** LOADING Gmap**/
     // Load Gmap Script and call callback function
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOEoWbQ3oiO5HM56q_Dmokg20MYRBglTc&libraries=places&callback=activateGMap")
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDhhK9dW_NMyW34h8PjzgreQyNKhQx77hI&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
@@ -306,7 +306,12 @@ resetApp = () => {
                             deActivateCitySearch={this.deActivateCitySearch}
                             userLocation={this.userLocation}
                       />
-                    <HomeResults activeMarkers={this.activeMarkers} citySearch={this.state.citySearch} curentLocation={this.state.curentLocation} mapCenter={this.state.mapCenter} ActivateMapReady={this.ActivateMapReady}/>
+                    <HomeResults activeMarkers={this.activeMarkers}
+                                 citySearch={this.state.citySearch}
+                                 curentLocation={this.state.curentLocation}
+                                 mapCenter={this.state.mapCenter}
+                                 mapReady={this.state.mapReady}
+                    />
                   </div>
                  )}
           />
