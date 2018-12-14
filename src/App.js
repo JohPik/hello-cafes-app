@@ -5,8 +5,8 @@ import HomeHeader from './HomeHeader'
 import Home from './Home'
 import HomeResults from './HomeResults'
 
+import MapHeader from './MapHeader'
 import Map from './Map'
-import PageNotFound from './PageNotFound'
 
 
 
