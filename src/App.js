@@ -25,9 +25,9 @@ class App extends Component {
       lat: "",
       lng: ""
       },
-      citySearch : false,
-      curentLocation : false,
-      mapReady : false
+    citySearch: false,
+    curentLocation: false,
+    mapReady: false
     }
 
   /*** CALLING APIS ***/
@@ -272,6 +272,7 @@ resetApp = () => {
     }
   let citySearch = false
   let curentLocation = false
+  let mapReady = false
 
   this.setState({
     allCafes,
@@ -279,7 +280,8 @@ resetApp = () => {
     query,
     mapCenter,
     citySearch,
-    curentLocation
+    curentLocation,
+    mapReady
   })
 }
 
@@ -300,7 +302,8 @@ resetApp = () => {
                  render={() => (
                    <div className="home-page">
                      <HomeHeader citySearch={this.state.citySearch}/>
-                     <Home  allCafes={this.state.allCafes}
+                     <Home  activeMarkers={this.activeMarkers}
+                            curentLocation={this.state.curentLocation}
                             citySearch={this.state.citySearch}
                             activateCitySearch={this.activateCitySearch}
                             deActivateCitySearch={this.deActivateCitySearch}
@@ -311,6 +314,7 @@ resetApp = () => {
                                  curentLocation={this.state.curentLocation}
                                  mapCenter={this.state.mapCenter}
                                  mapReady={this.state.mapReady}
+                                 resetApp={this.resetApp}
                     />
                   </div>
                  )}
@@ -321,7 +325,7 @@ resetApp = () => {
                  (<Redirect to="/"/>)
                   :
                   (<div className="map-page">
-                    <MapHeader disableMapReady={this.disableMapReady}/>
+                    <MapHeader/>
                     <Map  allCafes={this.state.allCafes}
                           openInfoWindow={this.openInfoWindow}
                           updateQuery={this.updateQuery}
