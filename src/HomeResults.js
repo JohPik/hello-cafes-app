@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import { Redirect } from 'react-router-dom'
+import { Link} from 'react-router-dom'
 
 class HomeResults extends Component {
 
@@ -8,14 +8,34 @@ class HomeResults extends Component {
         return(
           <Fragment>
             {!this.props.citySearch ?
+
+              /**** Using Current Location ***/
                   this.props.activeMarkers.length > 0 && this.props.curentLocation ?
-                    <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés <span>{this.props.mapCenter.name}</span></p>
+                    (<Fragment>
+                      <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés <span>{this.props.mapCenter.name}</span></p>
+                      <button className="home-button home-button-result">
+                        <Link to="/map">
+                          See Results on Map
+                        </Link>
+                      </button>
+                      <span>or</span>
+                      <button onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
+                    </Fragment>)
                   :
-                    <p>Please click one of the options above</p>
+                    (<p>Please click one of the options above</p>)
+
+              /**** Using Input Search City ***/
               : this.props.activeMarkers.length > 0 ?
+                  (<Fragment>
                     <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés in <span>{this.props.mapCenter.name}</span></p>
+                    <button className="home-button home-button-result">
+                      <Link to="/map">
+                        See Results on Map
+                      </Link>
+                    </button>
+                  </Fragment>)
                   :
-                <span></span>
+                (<span></span>)
             }
           </Fragment>
         )
