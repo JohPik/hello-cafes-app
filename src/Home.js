@@ -30,7 +30,7 @@ class Home extends Component {
               </Fragment>)
             :
               !this.props.activeMarkers.length > 0 ?
-                (<span>Currently Searching, Please Wait.</span>)
+                (<p className="home-loading">Currently Searching, Please Wait.</p>)
                 :
                 (<Fragment></Fragment>)
 
@@ -39,7 +39,6 @@ class Home extends Component {
           /**** Using Input Search City ***/
           (
             <Fragment>
-              <i className="fas fa-arrow-circle-left" onClick={() => this.props.deActivateCitySearch()}>Previous</i>
               <input className="search-café" placeholder="Enter your location"/>
             </Fragment>
           )

@@ -37,9 +37,17 @@ class HomeResults extends Component {
                     <button onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
                   </Fragment>)
                   : this.props.autoCompleteLoading ?
-                      (<span>Currently Searching, Please Wait.</span>)
+                      (<Fragment>
+                        <p className="home-loading">Currently Searching, Please Wait.</p>
+                        <span>or</span>
+                        <button onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
+                      </Fragment>)
+
                     :
-                      (<span></span>)
+                      (<Fragment>
+                        <span>or</span>
+                        <button onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
+                      </Fragment>)
             }
           </Fragment>
         )
