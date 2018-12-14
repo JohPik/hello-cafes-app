@@ -33,9 +33,13 @@ class HomeResults extends Component {
                         See Results on Map
                       </Link>
                     </button>
+                    <span>or</span>
+                    <button onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
                   </Fragment>)
-                  :
-                (<span></span>)
+                  : this.props.autoCompleteLoading ?
+                      (<span>Currently Searching, Please Wait.</span>)
+                    :
+                      (<span></span>)
             }
           </Fragment>
         )

@@ -27,6 +27,7 @@ class App extends Component {
       },
     citySearch: false,
     curentLocation: false,
+    autoCompleteLoading: false,
     mapReady: false
     }
 
@@ -70,6 +71,7 @@ class App extends Component {
             let lat = place.geometry.location.lat()
             let lng = place.geometry.location.lng()
 
+            this.setState({ autoCompleteLoading: true})
             this.getMapCenter(place.formatted_address, lat, lng)
             return
           })
@@ -272,6 +274,7 @@ resetApp = () => {
     }
   let citySearch = false
   let curentLocation = false
+  let autoCompleteLoading = false
   let mapReady = false
 
   this.setState({
@@ -281,6 +284,7 @@ resetApp = () => {
     mapCenter,
     citySearch,
     curentLocation,
+    autoCompleteLoading,
     mapReady
   })
 }
@@ -315,6 +319,7 @@ resetApp = () => {
                                  mapCenter={this.state.mapCenter}
                                  mapReady={this.state.mapReady}
                                  resetApp={this.resetApp}
+                                 autoCompleteLoading={this.state.autoCompleteLoading}
                     />
                   </div>
                  )}
