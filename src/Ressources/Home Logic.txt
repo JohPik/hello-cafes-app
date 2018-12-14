@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import './App.css'
 
 import HomeHeader from './HomeHeader'
 import Home from './Home'
 import HomeResults from './HomeResults'
 
+import MapHeader from './MapHeader'
 import Map from './Map'
-import PageNotFound from './PageNotFound'
 
 
 
@@ -25,10 +25,9 @@ class App extends Component {
       lat: "",
       lng: ""
       },
-    citySearch: false,
-    curentLocation: false,
-    autoCompleteLoading: false,
-    mapReady: false
+      citySearch : false,
+      curentLocation : false,
+      mapReady : false
     }
 
   /*** CALLING APIS ***/
@@ -46,13 +45,13 @@ class App extends Component {
     /** LOADING Gmap**/
     // Load Gmap Script and call callback function
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDhhK9dW_NMyW34h8PjzgreQyNKhQx77hI&libraries=places&callback=activateGMap")
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDOEoWbQ3oiO5HM56q_Dmokg20MYRBglTc&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
     // Gmap Callback fucntion is decided by url name
     activateGMap = () => {
-      if(window.location.href.indexOf("map") > -1){
+      if(this.state.mapReady){
         this.initMap()
       } else {
         if (this.state.citySearch) {
@@ -71,7 +70,6 @@ class App extends Component {
             let lat = place.geometry.location.lat()
             let lng = place.geometry.location.lng()
 
-            this.setState({ autoCompleteLoading: true})
             this.getMapCenter(place.formatted_address, lat, lng)
             return
           })
@@ -134,7 +132,6 @@ class App extends Component {
           return markersData.push(marker)
         })
         this.setState({ markersData })
-        this.setState({mapReady: true})
       }
 
   /** INIT MAP**/
@@ -274,7 +271,6 @@ resetApp = () => {
     }
   let citySearch = false
   let curentLocation = false
-  let autoCompleteLoading = false
   let mapReady = false
 
   this.setState({
@@ -284,12 +280,27 @@ resetApp = () => {
     mapCenter,
     citySearch,
     curentLocation,
-    autoCompleteLoading,
     mapReady
   })
 }
 
-/********************* Manage Routing and REdirect *********************/
+/********************* Manage Routing and Redirect *********************/
+
+// activateMapReady = () => {
+//   setTimeout(() => {
+//     this.setState({ mapReady : true})
+//     }, 3000)
+// }
+
+activateMapReady = () => {
+  this.setState({ mapReady : true})
+}
+
+
+disableMapReady = () => {
+  this.setState({ mapReady : false})
+}
+
 
 /********************* Render *********************/
   render() {
@@ -299,57 +310,43 @@ resetApp = () => {
 
     return (
       <div className="main">
-
-
         <Switch>
-          <Route exact path="/"
-                 render={() => (
-                   <div className="home-page">
-                     <HomeHeader citySearch={this.state.citySearch}/>
-                     <Home  activeMarkers={this.activeMarkers}
-                            curentLocation={this.state.curentLocation}
-                            citySearch={this.state.citySearch}
-                            activateCitySearch={this.activateCitySearch}
-                            deActivateCitySearch={this.deActivateCitySearch}
-                            userLocation={this.userLocation}
-                      />
-                    <HomeResults activeMarkers={this.activeMarkers}
-                                 citySearch={this.state.citySearch}
-                                 curentLocation={this.state.curentLocation}
-                                 mapCenter={this.state.mapCenter}
-                                 mapReady={this.state.mapReady}
-                                 resetApp={this.resetApp}
-                                 autoCompleteLoading={this.state.autoCompleteLoading}
-                    />
-                  </div>
-                 )}
+
+          <Route exact path="/"  render={() => (
+
+               <div className="home-page">
+                 <HomeHeader citySearch={this.state.citySearch}/>
+                 <Home  allCafes={this.state.allCafes}
+                        citySearch={this.state.citySearch}
+                        activateCitySearch={this.activateCitySearch}
+                        deActivateCitySearch={this.deActivateCitySearch}
+                        userLocation={this.userLocation}
+                  />
+                <HomeResults activeMarkers={this.activeMarkers} citySearch={this.state.citySearch} curentLocation={this.state.curentLocation} mapCenter={this.state.mapCenter} activateMapReady={this.activateMapReady}/>
+              </div>
+
+
+             )}
           />
 
-          <Route exact path="/map" render={() => (
-                 !this.state.mapReady ?
-                 (<Redirect to="/"/>)
-                  :
-                  (<div className="map-page">
-                    <MapHeader/>
-                    <Map  allCafes={this.state.allCafes}
-                          openInfoWindow={this.openInfoWindow}
-                          updateQuery={this.updateQuery}
-                          query={this.state.query}
-                          activeMarkers={this.activeMarkers}
-                          resetApp={this.resetApp}
-                      />
-                  </div>)
-              )}/>
+      <Route exact path="/map" render={() => (
+             !this.state.mapReady ?
+             (<Redirect to="/"/>)
+              :
+              (<div className="map-page">
+                <MapHeader disableMapReady={this.disableMapReady}/>
+                <Map  allCafes={this.state.allCafes}
+                      openInfoWindow={this.openInfoWindow}
+                      updateQuery={this.updateQuery}
+                      query={this.state.query}
+                      activeMarkers={this.activeMarkers}
+                      resetApp={this.resetApp}
+                  />
+              </div>)
+          )}/>
 
           <Route component={PageNotFound}/>
-
         </Switch>
-
-
-
-
-
-
       </div>
     )
 
