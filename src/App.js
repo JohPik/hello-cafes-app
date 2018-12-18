@@ -2,6 +2,11 @@ import React, { Component } from 'react'
 import './App.css'
 
 import HomeHeader from './HomeHeader'
+import HomeMainMenu from './HomeMainMenu'
+import HomeCitySearch from './HomeCitySearch'
+import HomeUserLocation from './HomeUserLocation'
+import HomeFooter from './HomeFooter'
+
 import Home from './Home'
 import HomeResults from './HomeResults'
 
@@ -45,8 +50,10 @@ class App extends Component {
 
     /** LOADING Gmap**/
     // Load Gmap Script and call callback function
+
+    // For later XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDhhK9dW_NMyW34h8PjzgreQyNKhQx77hI&libraries=places&callback=activateGMap")
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDMZqBuiOqNcK-3dCj8eT8hC2jWi_a65E4&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
@@ -306,21 +313,24 @@ resetApp = () => {
                  render={() => (
                    <div className="home-page">
                      <HomeHeader citySearch={this.state.citySearch}/>
-                     <Home  activeMarkers={this.activeMarkers}
-                            curentLocation={this.state.curentLocation}
-                            citySearch={this.state.citySearch}
-                            activateCitySearch={this.activateCitySearch}
-                            deActivateCitySearch={this.deActivateCitySearch}
-                            userLocation={this.userLocation}
-                      />
-                    <HomeResults activeMarkers={this.activeMarkers}
-                                 citySearch={this.state.citySearch}
-                                 curentLocation={this.state.curentLocation}
-                                 mapCenter={this.state.mapCenter}
-                                 mapReady={this.state.mapReady}
-                                 resetApp={this.resetApp}
-                                 autoCompleteLoading={this.state.autoCompleteLoading}
-                    />
+                      <div className="home-main">
+                       { !this.state.citySearch && !this.state.curentLocation ?
+                         (<HomeMainMenu
+                           userLocation={this.userLocation}
+                           activateCitySearch={this.activateCitySearch}
+                           />)
+                         :
+                            this.state.curentLocation ?
+                            (<HomeUserLocation
+                              activeMarkers={this.activeMarkers}
+                              mapCenter={this.state.mapCenter}
+                              resetApp={this.resetApp}
+                              />)
+                            :
+                            (<HomeCitySearch/>)
+                       }
+                     </div>
+                     <HomeFooter citySearch={this.state.citySearch} curentLocation={this.state.curentLocation}/>
                   </div>
                  )}
           />
