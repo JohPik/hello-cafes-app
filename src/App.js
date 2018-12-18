@@ -50,7 +50,7 @@ class App extends Component {
 
     // For later XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDMZqBuiOqNcK-3dCj8eT8hC2jWi_a65E4&libraries=places&callback=activateGMap")
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
@@ -359,11 +359,6 @@ resetApp = () => {
           <Route component={PageNotFound}/>
 
         </Switch>
-
-
-
-
-
 
       </div>
     )
