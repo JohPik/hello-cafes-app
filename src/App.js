@@ -7,9 +7,6 @@ import HomeCitySearch from './HomeCitySearch'
 import HomeUserLocation from './HomeUserLocation'
 import HomeFooter from './HomeFooter'
 
-import Home from './Home'
-import HomeResults from './HomeResults'
-
 import MapHeader from './MapHeader'
 import Map from './Map'
 
