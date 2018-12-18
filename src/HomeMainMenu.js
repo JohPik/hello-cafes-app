@@ -10,7 +10,7 @@ class HomeMainMenu extends Component {
                   <span>or</span>
                   <button onClick={this.props.activateCitySearch} className="home-button user-city">Your City</button>
                 </div>
-              </Fragment>
+          </Fragment>
         )
     }
   }

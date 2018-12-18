@@ -142,6 +142,9 @@ class App extends Component {
         })
         this.setState({ markersData })
         this.setState({mapReady: true})
+        if (this.state.autoCompleteLoading) {
+          this.setState({autoCompleteLoading: false})
+        }
       }
 
   /** INIT MAP**/
@@ -327,7 +330,12 @@ resetApp = () => {
                               resetApp={this.resetApp}
                               />)
                             :
-                            (<HomeCitySearch/>)
+                            (<HomeCitySearch
+                              autoCompleteLoading={this.state.autoCompleteLoading}
+                              activeMarkers={this.activeMarkers}
+                              mapCenter={this.state.mapCenter}
+                              resetApp={this.resetApp}
+                              />)
                        }
                      </div>
                      <HomeFooter citySearch={this.state.citySearch} curentLocation={this.state.curentLocation}/>
