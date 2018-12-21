@@ -1,51 +1,41 @@
 
 /******* GENERAL *******/
-html, body, .main {
+* {
   font-family: Mali, cursive;
-  height: 100%;
   margin: 0;
   padding: 0;
+}
+
+h1, h2, p, i {
+    color: #060659;
 }
 
 
 /******* HOME PAGE *******/
 
-/*General*/
+/*** General ***/
 .home-page {
-    background-image: url("./images/Coffee-Background-Picture.jpg");
-    background-position: center; /* Center the image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover;
-    height: 100vh;
-    text-align: center;
+  background-image: url("./images/Coffee-Background-Picture.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
-
-.home-heading, .home-subheading {
-   font-family: Mali, cursive;
-   color: #060659;
-   margin-top: 0;
-   margin: auto;
-   text-align: center;
-}
-
-.home-heading {
-    padding-top: 30vh;
-    font-size: 200%;
-}
-
 
 .home-heading h1 {
-  margin: 0;
-  font-size: 200%;
+  font-size: 400%;
 }
 
-.home-heading i {
+.home-heading h1 i{
   color: #F22C63;
   margin: 0 10px;
 }
 
 .home-subheading h2 {
-  margin: 30px 0 0 0;
   font-size: 200%;
 }
 
@@ -53,14 +43,17 @@ html, body, .main {
   margin: 20px 0;
   font-weight: bold;
   color: #060659;
+  display: flex;
+  justify-content: center;
+  flex-flow: row;
 }
 
-.home-buttons button{
+.home-buttons button {
  transition: box-shadow .20s;
  border-radius: 20px
 }
 
-.home-buttons button:hover {
+.home-button:hover {
     box-shadow: 6px 0px 14px 0px #00000042;
 }
 
@@ -68,18 +61,13 @@ html, body, .main {
   font-size: 125%;
 }
 
-.home-page p{
-  font-size: 125%;
-  color: #060659;
-  margin: 0;
+button.user-location {
+  background-color: #06F5F4;
 }
 
-
-.home-cafes-numbers span {
-  color: #F22C63;
-  font-weight: bold;
+button.user-city {
+  background-color:  #F22C63;
 }
-
 
 button.home-button {
     font-size: 125%;
@@ -93,137 +81,198 @@ button.home-button {
     box-shadow: 0px 6px 14px 0px #00000042;
 }
 
-button.user-location {
+/*** General Responsive Design ***/
+@media only screen and (max-width: 650px) {
+  .home-heading h1 {
+    font-size: 300%;
+  }
+  .home-heading h1 {
+    font-size: 300%;
+  }
+  .home-buttons{
+    flex-flow: column !important;
+  }
+  button.user-location, button.user-city  {
+        margin: 0 auto;
+  }
+  .home-buttons span {
+    margin: .3em;
+  }
+  .home-heading {
+    padding-bottom: 1.5em;
+  }
+  .home-subheading h2 {
+    font-size: 180%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+    .home-heading h1 {
+      font-size: 250%;
+    }
+}
+
+/*** User Location & City Search ***/
+.svg-loader {
+  margin-top: .5em;
+  margin-bottom: 1.5em;
+}
+
+.home-result {
+  display: flex;
+  flex-flow: column;
+}
+
+.home-result button {
+  margin: .2em auto;
+}
+
+.home-cafes-numbers {
+    font-weight: bold;
+    margin: .5em auto
+}
+
+.home-cafes-numbers span {
+    color: #F22C63;
+}
+
+button.map-result i {
+  padding-top: 8px;
+  font-size: 2em;
+}
+
+button.map-result  {
   background-color: #06F5F4;
+  border-radius: 20px;
+  width:250px;
 }
 
-button.user-city {
-  background-color:  #F22C63;
+span.home-span-or {
+    margin: .5em;
 }
-/*
-input.search-café {
-    padding: 10px;
-    margin: 20px 10px;
-    width: 400px;
-    height: 25px;
-    font-family: mali;
-    font-size: 150%;
-    color: #060659;
-} */
 
+button.back-menu {
+  font-size: 100%;
+  padding: 0;
+  margin:0 auto;
+  width:200px;
+  padding: 8px 25px;
+  border-radius: 20px;
+}
+
+button.back-menu i {
+  margin-right: 5px;
+}
+
+/*** User Location & City Search Responsive Design ***/
+@media only screen and (max-width: 650px) {
+  button.map-result  {
+    width:200px;
+  }
+}
+
+/*** City Search ***/
 input.search-café {
   border: 1px lightgrey solid;
-    padding: 8px 10px;
-    margin: 20px 30px;
-    width: 400px;
-    height: 24px;
-    font-family: mali;
-    font-size: 125%;
-    color: #060659;
+  padding: 8px 10px;
+  margin: 20px auto;
+  width: 400px;
+  height: 24px;
+  font-family: mali;
+  font-size: 125%;
+  color: #060659;
 }
 
-
-/* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
-.pac-container:after {
-   background-image: none !important;
-   height: 0px;
-}
-
-input.search-map-café {
- width: 50%;
- margin: 0 auto;
- padding: 20px;
- margin-left: 25%;
-}
-
-/********** MORE MAP SHIT ************/
-
-/* Heading */
-
-.map-heading {
-  background-color: #060659;
-  color: white;
+/******* MAP PAGE *******/
+/*** General ***/
+.map-page {
+  height: 100vh;
   text-align: center;
-  height: 80px;
-  line-height: 80px;
-  border-bottom: solid white 2px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.map-heading h1 {
-  margin: 0;
-  font-size: 200%;
-  display: inline;
+
+/*** heading ***/
+.map-heading {
+  height: 10vh;
+  background-color: #060659;
 }
 
-.map-heading i{
+
+.map-heading h1, .map-heading i{
+  color: white;
+}
+
+.map-heading h1 i{
   color: #F22C63;
   margin: 0 10px;
 }
 
+.map-heading {
+    position: relative
+  }
 
-/******* MAP PAGE *******/
+.map-heading h1 {
+  font-size: 200%;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%)
+  }
 
-/* The map-maint */
+.map-heading p {
+    color: white;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    margin-right: -2%;
+    transform: translate(-2%, -50%)
+  }
+
+.map-heading p i {
+    padding-right: .5em;
+  }
+
+/***** MAP MAIN *****/
+
 .map-main {
+  text-align: left;
   display: flex;
-  flex-flow: row wrap;
-  height: calc(100vh - 82px); /* need to change that */
-  width: 100%;
+  flex-direction: raw;
+  justify-content: flex-start;
 }
 
-/* The Map Search */
-.map-side-bar{
-  width: 30%;
-  height: 80px;
-  background-color: #F27141;
-  position: relative;
+.map-side-bar {
+  width: 30vw;
+  height: 90vh;
+  background: white;
 }
 
-.map-side-bar input{
-  width: 100%;
-  height: 80px;
+/*** INPUT ***/
+.map-search {
+  height: 10vh;
+  /* padding-left: 40px; */
+}
+
+.map-search input{
+  height: 5vh;
   line-height: 80px;
   border: 0;
-  padding-left: 40px;
+  /* padding-left: 40px; */
   font-size: 100%;
-  font-family: Mali, cursive;
 }
 
-.map-side-bar i{
-  color: #F22C63;
-  position: absolute;
-  line-height: 80px;
-  padding-left: 10px;
-  top: 0;
-}
-
-.cafes-numbers {
-    position: absolute;
-    top: 65px;
-    margin: 0;
-    font-size: .6em;
-    right: 10px;
-}
-
-.cafes-numbers span{
-    font-weight: bold;
-    color: #F22C63;
-}
-
-/* The Map */
-#map {
-  margin-top: 2px;
-  width: 70%;
-  height: 100%;
-  position: static;
-}
-
-/* The Search Result */
+/*** Search List ***/
 .map-search-list {
   width: 100%;
-  height: calc(100vh - 162px);
+  height: 80vh;
   overflow: auto;
-  margin: 1em;
+  /* margin: 1em; */
   color: white;
   font-family: Mali, cursive;
   font-size: 100%;
@@ -234,68 +283,44 @@ input.search-map-café {
 
 .map-search-list li {
   position: relative;
-  height: 80px;
+  height: 8vh;
   padding: 10px 20px 10px 20px;
 }
 
 .map-search-list li:nth-child(2n) {
   background: #060659;
 }
+.map-search-list li:nth-child(2n) p {
+  color: white;
+}
+
 .map-search-list li:nth-child(2n + 1) {
   background: #06F5F4;
-  color: #060659;
 }
 
 .map-search-list p {
   margin: 0;
 }
 
-.cafe-name{
-  font-weight: bold;
-  font-size: 1.1em;
+.map-search-list button{
+  background:none;
+  border: none;
   color: #F22C63;
+  font-weight: bold;;
+  font-size: 1em;
 }
 
 .search-failed{
+  margin: auto 0;
+  height: 80vh;
   background: #F22C63;
   text-align: center;
-  height: calc(100vh - 162px);
 }
 
-.search-loads{
-  background: #060659;
-  text-align: center;
-  height: calc(100vh - 162px);
+
+/*** MAP ***/
+
+#map {
+  width: 70vw;
+  height: 90vh;
 }
-
-.map-no-match, .map-loading-cafes {
-  padding-top: calc(100vh - 162px - 100%);
-  margin: 0;
-  color: white;
-}
-
- /*** Responive Design ***/
- @media (max-width: 800px) {
-  .map-side-bar, .map-search-result{
-    width: 100%;
-  }
-  .map-search-result{
-    position: absolute;
-    bottom: calc(-100vh + 162px);
-  }
-  .map-search-list{
-    height: calc(57vh - 162px);
-  }
-  .map-side-bar input{
-    width: calc(100% - 40px);
-  }
-
-  #map{
-      margin-top: 0;
-      width: 100%;
-      height: calc(60vh - 162px);
-      position: absolute;
-      top: 162px;
-  }
-
- }
