@@ -38,8 +38,12 @@ class HomeCitySearch extends Component {
                     </Link>
                   <span className="home-span-or">or</span>
                 </Fragment>)
-                :
-                (<Fragment/>)
+                : this.props.mapCenter.name.length > 0 ?
+                    /*When No Cafe are found*/
+                    (<p>Sorry we did not find any cafes</p>)
+                    :
+                    /*Otherwise does not display content*/
+                    (<Fragment/>)
             }
             <button className="home-button back-menu" onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
           </div>

@@ -28,6 +28,7 @@ class App extends Component {
       lng: ""
       },
     citySearch: false,
+    citySearchResults: false,
     curentLocation: false,
     autoCompleteLoading: false,
     mapReady: false
@@ -141,6 +142,7 @@ class App extends Component {
         this.setState({mapReady: true})
         if (this.state.autoCompleteLoading) {
           this.setState({autoCompleteLoading: false})
+          this.setState({citySearchResults: true})
         }
       }
 
@@ -161,7 +163,7 @@ class App extends Component {
   }
 
   setMarker = (myMap) => {
-    this.activeMarkers.map( customMarker => {  //!!!!!!! Changed map to forEcah !!!!!!
+    this.activeMarkers.map( customMarker => {
 
       // infowindow content
       let infowindowContent =
@@ -330,6 +332,7 @@ resetApp = () => {
                             (<HomeCitySearch
                               autoCompleteLoading={this.state.autoCompleteLoading}
                               activeMarkers={this.activeMarkers}
+                              citySearchResult={this.state.citySearchResults}
                               mapCenter={this.state.mapCenter}
                               resetApp={this.resetApp}
                               />)
