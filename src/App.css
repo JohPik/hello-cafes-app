@@ -366,7 +366,10 @@ input.search-café {
   font-size: 1em;
 }
 
-.search-failed{
+.search-failed {
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
   margin: auto 0;
   height: 80vh;
   background: #F22C63;
@@ -424,7 +427,7 @@ input.search-café {
   .map-search p {
     left: calc(100vw - 110px);
   }
-  .map-search-list {
+  .map-search-list, .search-failed {
     height: 50vh;
   }
   #map {
@@ -448,7 +451,7 @@ input.search-café {
   .map-search {
     height: 10vh;
 }
-  .map-search-list {
+  .map-search-list, .search-failed {
     height: 55vh;
   }
   .map-search i {

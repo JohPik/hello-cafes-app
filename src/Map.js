@@ -45,7 +45,7 @@ class Map extends Component {
                     :
                     this.props.allCafes.length > 1 ?
                       <div className="search-failed">
-                        <p className="map-no-match">Ooops, nothing matches your search, please look for another venue</p>
+                        <p className="map-no-match">Ooops, nothing matches your search, please look for another venue.</p>
                       </div>
                         :
                       <div className="search-loads">
