@@ -154,7 +154,8 @@ class App extends Component {
     let map = new window.google.maps.Map(document.getElementById('map'), {
           style: { height: '100%', position: 'static', width: '100%' },
           center: {lat: this.state.mapCenter.lat, lng: this.state.mapCenter.lng},
-          zoom: 16
+          zoom: 16,
+          disableDefaultUI: true
         })
     this.setMarker(map)
   }

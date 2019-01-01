@@ -33,7 +33,7 @@ class HomeCitySearch extends Component {
                     <Link to="/map">
                       <button className="home-button map-result">
                         <p>See Results on Map</p>
-                        <i class="fas fa-map-marked-alt"></i>
+                        <i className="fas fa-map-marked-alt"></i>
                       </button>
                     </Link>
                   <span className="home-span-or">or</span>

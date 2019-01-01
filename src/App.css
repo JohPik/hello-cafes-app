@@ -112,7 +112,8 @@ button.home-button {
     }
 }
 
-/*** User Location & City Search ***/
+
+/******* User Location & City Search *******/
 .svg-loader {
   margin-top: .5em;
   margin-bottom: 1.5em;
@@ -169,7 +170,21 @@ button.back-menu i {
   button.map-result  {
     width:200px;
   }
+  .home-result input.search-caféi {
+    width: 350px;
+  }
 }
+
+@media only screen and (max-width: 450px) {
+  button.home-button {
+    width: 250px;
+  }
+
+  .home-result input.search-café {
+    width: 90%;
+  }
+}
+
 
 /*** City Search ***/
 input.search-café {
@@ -181,6 +196,12 @@ input.search-café {
   font-family: mali;
   font-size: 125%;
   color: #060659;
+}
+
+.pac-container:after {
+    /* Disclaimer: not needed to show 'powered by Google' if also a Google Map is shown */
+    background-image: none !important;
+    height: 0px;
 }
 
 /******* MAP PAGE *******/
@@ -198,6 +219,7 @@ input.search-café {
 .map-heading {
   height: 10vh;
   background-color: #060659;
+  box-shadow: -1px 7px 10px 0px #00000024;
 }
 
 
@@ -229,7 +251,7 @@ input.search-café {
     margin: 0;
     position: absolute;
     top: 50%;
-    left: 2%;
+    left: 30px;
     margin-right: -2%;
     transform: translate(-2%, -50%)
   }
@@ -243,7 +265,7 @@ input.search-café {
 .map-main {
   text-align: left;
   display: flex;
-  flex-direction: raw;
+  flex-direction: row;
   justify-content: flex-start;
 }
 
@@ -256,15 +278,32 @@ input.search-café {
 /*** INPUT ***/
 .map-search {
   height: 10vh;
-  /* padding-left: 40px; */
 }
 
-.map-search input{
-  height: 5vh;
+.map-search input {
+  width: calc(30vw - 52px);
+  padding-left: 52px;
+  height: 10vh;
   line-height: 80px;
   border: 0;
-  /* padding-left: 40px; */
   font-size: 100%;
+}
+
+.map-search i {
+  position: absolute;
+  top: 14vh;
+  left: 30px;
+}
+
+.map-search p {
+    position: absolute;
+    top: 18vh;
+    left: calc(30vw - 120px);
+    font-size: x-small;
+}
+
+.map-search p span {
+  color: #F22C63;
 }
 
 /*** Search List ***/
@@ -272,7 +311,6 @@ input.search-café {
   width: 100%;
   height: 80vh;
   overflow: auto;
-  /* margin: 1em; */
   color: white;
   font-family: Mali, cursive;
   font-size: 100%;
@@ -283,9 +321,12 @@ input.search-café {
 
 .map-search-list li {
   position: relative;
-  height: 8vh;
-  padding: 10px 20px 10px 20px;
+  min-height: 8vh;
+  padding: 10px 30px;
+  display: flex;
+  flex-direction: column;
 }
+
 
 .map-search-list li:nth-child(2n) {
   background: #060659;
@@ -296,6 +337,10 @@ input.search-café {
 
 .map-search-list li:nth-child(2n + 1) {
   background: #06F5F4;
+}
+
+.map-search-list button {
+  text-align: left;
 }
 
 .map-search-list p {
@@ -317,10 +362,100 @@ input.search-café {
   text-align: center;
 }
 
-
 /*** MAP ***/
 
 #map {
   width: 70vw;
   height: 90vh;
+}
+
+.gmnoprint {
+    display: none;
+}
+
+
+/*** MAP PAGE Responsive Design ***/
+@media only screen and (max-width: 1400px) {
+  .map-heading p, .map-search i  {
+    left: 20px;
+  }
+  .map-search input {
+    width: calc(30vw - 42px);
+    padding-left: 42px;
+  }
+  .map-search p {
+    left: calc(30vw - 110px);
+  }
+  .map-search-list li {
+    padding: 10px 20px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .map-main {
+    flex-direction: column;
+    flex-flow: column-reverse;
+  }
+  .map-side-bar {
+    width: 100vw;
+    height: 60vh;
+  }
+  .map-search input {
+    width: calc(100vw - 42px);
+    padding-left: 42px;
+  }
+  .map-search i {
+    top: 44vh;
+  }
+  .map-search p {
+    top: 48vh;
+  }
+  .map-search p {
+    left: calc(100vw - 110px);
+  }
+  .map-search-list {
+    height: 50vh;
+  }
+  #map {
+    width: 100vw;
+    height: 30vh;
+    box-shadow: -1px 7px 10px 0px #00000024;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .map-heading p span {
+    display: none;
+  }
+  #map {
+    height: 25vh;
+  }
+  .map-side-bar {
+    height: 65vh;
+  }
+  .map-search {
+    height: 10vh;
+}
+  .map-search-list {
+    height: 55vh;
+  }
+  .map-search i {
+    top: 39vh;
+  }
+  .map-search p {
+    top: 42vh;
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  .map-heading h1 {
+      font-size: 150%;
+    }
+  .map-search-list button {
+    font-size: .8em;
+  }
+  .map-search-list p {
+    font-size: .8em;
+  }
 }
