@@ -110,6 +110,9 @@ button.home-button {
     .home-heading h1 {
       font-size: 250%;
     }
+    .home-subheading h2 {
+      font-size: 140%;
+    }
 }
 
 
@@ -128,13 +131,21 @@ button.home-button {
   margin: .2em auto;
 }
 
-.home-cafes-numbers {
-    font-weight: bold;
-    margin: .5em auto
+.home-cafes-numbers, .home-cafes-no-result, .home-cafes-no-result-user-location {
+  font-weight: bold;
+  margin: .5em auto
 }
 
-.home-cafes-numbers span {
-    color: #F22C63;
+.home-cafes-numbers span, .home-cafes-no-result span, .home-cafes-no-result-user-location span {
+  color: #F22C63;
+}
+
+.home-cafes-no-result {
+  margin: 0 0 20px;
+}
+
+.home-cafes-no-result-user-location {
+  margin: 20px 0 20px 0;
 }
 
 button.map-result i {

@@ -9,7 +9,14 @@ class HomeUserLocation extends Component {
           <Fragment>
           { !this.props.activeMarkers.length > 0 ?
                   this.props.curentLocationTest ?
-                  (<p>"Sorry"</p>)
+                  (<Fragment>
+                      <div className="home-result">
+                        <p className="home-cafes-no-result-user-location">
+                          <span>Sorry</span>, we found <span>0</span> cafés <span>near you</span>.
+                        </p>
+                        <button className="home-button back-menu" onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
+                      </div>
+                   </Fragment>)
                   :
                 /*Loading Animation*/
                   (<div className="svg-loader">
@@ -31,19 +38,19 @@ class HomeUserLocation extends Component {
                   </div>)
                   :
                 /*Results*/
-                  (<Fragment>
-                    <div className="home-result">
-                      <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés <span>{this.props.mapCenter.name}</span></p>
-                        <Link to="/map">
-                          <button className="home-button map-result">
-                            <p>See Results on Map</p>
-                            <i className="fas fa-map-marked-alt"></i>
-                          </button>
-                        </Link>
-                      <span className="home-span-or">or</span>
-                      <button className="home-button back-menu" onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
-                    </div>
-                    </Fragment>)
+                (<Fragment>
+                  <div className="home-result">
+                    <p className="home-cafes-numbers">We found <span>{this.props.activeMarkers.length}</span> cafés <span>{this.props.mapCenter.name}</span></p>
+                      <Link to="/map">
+                        <button className="home-button map-result">
+                          <p>See Results on Map</p>
+                          <i className="fas fa-map-marked-alt"></i>
+                        </button>
+                      </Link>
+                    <span className="home-span-or">or</span>
+                    <button className="home-button back-menu" onClick={() => this.props.resetApp()}><i className="fas fa-arrow-circle-left"/>Return to Menu</button>
+                  </div>
+                  </Fragment>)
           }
         </Fragment>
         )

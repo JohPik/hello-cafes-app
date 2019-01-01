@@ -40,7 +40,13 @@ class HomeCitySearch extends Component {
                 </Fragment>)
                 : this.props.mapCenter.name.length > 0 ?
                     /*When No Cafe are found*/
-                    (<p>Sorry we did not find any cafes</p>)
+                    (<Fragment>
+                      <p className="home-cafes-no-result">
+                        <span>Sorry</span>, we found <span>0</span> cafés.
+                        <br/>
+                        please search a <span>new location</span>.
+                      </p>
+                     </Fragment>)
                     :
                     /*Otherwise does not display content*/
                     (<Fragment/>)
