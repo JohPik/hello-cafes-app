@@ -28,8 +28,8 @@ class App extends Component {
       lng: ""
       },
     citySearch: false,
-    citySearchResults: false,
     curentLocation: false,
+    curentLocationCompleted: false,
     autoCompleteLoading: false,
     mapReady: false
     }
@@ -104,9 +104,7 @@ class App extends Component {
         lat: lat,
         lng: lng
         }
-        this.setState({
-          mapCenter: updatedMapCenter
-        })
+        this.setState({mapCenter: updatedMapCenter})
         this.activate4Square(lat, lng) // Call 4square
       }
 
@@ -140,9 +138,13 @@ class App extends Component {
         })
         this.setState({ markersData })
         this.setState({mapReady: true})
+
         if (this.state.autoCompleteLoading) {
           this.setState({autoCompleteLoading: false})
-          this.setState({citySearchResults: true})
+        }
+
+        if (this.state.curentLocation) {
+          this.setState({curentLocationCompleted: true})
         }
       }
 
@@ -258,9 +260,9 @@ class App extends Component {
 /********************* Enable User Location *********************/
 
 userLocation = () => {
-  // this.setState({ }) DO SOMETHING ABOUT THE STATE OF uselocation activated
-  navigator.geolocation.getCurrentPosition(this.geoSuccess)
   this.setState({ curentLocation: true})
+  navigator.geolocation.getCurrentPosition(this.geoSuccess)
+  console.log("HELLO");
 }
 
 geoSuccess = (position) => {
@@ -284,6 +286,7 @@ resetApp = () => {
     }
   let citySearch = false
   let curentLocation = false
+  let curentLocationCompleted = false
   let autoCompleteLoading = false
   let mapReady = false
 
@@ -294,6 +297,7 @@ resetApp = () => {
     mapCenter,
     citySearch,
     curentLocation,
+    curentLocationCompleted,
     autoCompleteLoading,
     mapReady
   })
@@ -327,12 +331,12 @@ resetApp = () => {
                               activeMarkers={this.activeMarkers}
                               mapCenter={this.state.mapCenter}
                               resetApp={this.resetApp}
+                              curentLocationCompleted={this.state.curentLocationCompleted}
                               />)
                             :
                             (<HomeCitySearch
                               autoCompleteLoading={this.state.autoCompleteLoading}
                               activeMarkers={this.activeMarkers}
-                              citySearchResult={this.state.citySearchResults}
                               mapCenter={this.state.mapCenter}
                               resetApp={this.resetApp}
                               />)

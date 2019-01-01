@@ -4,9 +4,13 @@ import { Link} from 'react-router-dom'
 class HomeUserLocation extends Component {
 
     render(){
+      console.log(this.props);
         return(
           <Fragment>
           { !this.props.activeMarkers.length > 0 ?
+                  this.props.curentLocationTest ?
+                  (<p>"Sorry"</p>)
+                  :
                 /*Loading Animation*/
                   (<div className="svg-loader">
                     <svg x="0px" y="0px" width="5em" height="5em" viewBox="0 0 40 40">
