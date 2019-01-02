@@ -48,10 +48,8 @@ class App extends Component {
 
     /** LOADING Gmap**/
     // Load Gmap Script and call callback function
-
-    // For later XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyDMZqBuiOqNcK-3dCj8eT8hC2jWi_a65E4&libraries=places&callback=activateGMap")
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyBlhQ_P3Ur167u9NMN6RKm0abLCC99bZKI&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
@@ -262,7 +260,6 @@ class App extends Component {
 userLocation = () => {
   this.setState({ curentLocation: true})
   navigator.geolocation.getCurrentPosition(this.geoSuccess)
-  console.log("HELLO");
 }
 
 geoSuccess = (position) => {

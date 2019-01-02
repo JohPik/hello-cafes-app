@@ -4,7 +4,6 @@ import { Link} from 'react-router-dom'
 class HomeUserLocation extends Component {
 
     render(){
-      console.log(this.props);
         return(
           <Fragment>
           { !this.props.activeMarkers.length > 0 ?
