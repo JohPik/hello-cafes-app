@@ -86,9 +86,6 @@ button.home-button {
   .home-heading h1 {
     font-size: 300%;
   }
-  .home-heading h1 {
-    font-size: 300%;
-  }
   .home-buttons{
     flex-flow: column !important;
   }
@@ -472,4 +469,52 @@ input.search-café {
   .map-search-list p {
     font-size: .8em;
   }
+}
+
+/******* 404 PAGE *******/
+
+/*** General ***/
+.page-not-found {
+  background-image: url("./images/Coffee-Background-Picture-2.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.page-not-found button{
+  width: auto;
+  margin: 20px 0;
+}
+
+.page-not-found h1 {
+    font-size: 400%;
+    color: #F22C63;
+}
+
+.page-not-found p {
+    margin-top: 20px;
+}
+
+/*** 404 PAGE Responsive Design ***/
+@media only screen and (max-width: 650px) {
+  .page-not-found h1 {
+    font-size: 300%;
+  }
+  .page-not-found h2 {
+    font-size: 180%;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+    .page-not-found h1 {
+      font-size: 250%;
+    }
+    .page-not-found h2 {
+      font-size: 140%;
+    }
 }
