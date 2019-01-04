@@ -2,9 +2,11 @@ import React, { Fragment } from 'react'
 import { Link} from 'react-router-dom'
 
 const HomeCitySearch = (props) => {
+
   return(
     <div className="home-result">
-      <input className="search-café" placeholder="Enter your location"/>
+        <input className="search-café" placeholder="Enter your location"/>
+
       {props.autoCompleteLoading ?
           /*Loading Animation*/
           (<div className="svg-loader">

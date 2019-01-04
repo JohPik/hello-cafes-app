@@ -49,13 +49,14 @@ class App extends Component {
     /** LOADING Gmap**/
     // Load Gmap Script and call callback function
     renderSearch = () => {
-      loadGMap("https://maps.googleapis.com/maps/api/js?key=AIzaSyBlhQ_P3Ur167u9NMN6RKm0abLCC99bZKI&libraries=places&callback=activateGMap")
+      const googleMapAPIKey = "AIzaSyBlhQ_P3Ur167u9NMN6RKm0abLCC99bZKI"
+      loadGMap("https://maps.googleapis.com/maps/api/js?key=" + googleMapAPIKey + "&libraries=places&callback=activateGMap")
       window.activateGMap = this.activateGMap
     }
 
     // Gmap Callback fucntion is decided by url name
     activateGMap = () => {
-      if(window.location.href.indexOf("map") > -1){
+      if(window.location.href.indexOf("map") > -1) {
         this.initMap()
       } else {
         if (this.state.citySearch) {
@@ -70,15 +71,18 @@ class App extends Component {
       const options = {types: ['(cities)']};
       let autocomplete = new window.google.maps.places.Autocomplete(input, options)
       autocomplete.addListener('place_changed', () => {
-            let place = autocomplete.getPlace()
-            let lat = place.geometry.location.lat()
-            let lng = place.geometry.location.lng()
+        let place = autocomplete.getPlace()
+            if(!place.geometry) {
+              window.alert("Please enter a valid Address.");
+            } else {
+              let lat = place.geometry.location.lat()
+              let lng = place.geometry.location.lng()
 
-            this.setState({ autoCompleteLoading: true})
-            this.getMapCenter(place.formatted_address, lat, lng)
+              this.setState({ autoCompleteLoading: true})
+              this.getMapCenter(place.formatted_address, lat, lng)
+            }
             return
           })
-          return
         }
 
         activateCitySearch = () => {
@@ -147,7 +151,6 @@ class App extends Component {
       }
 
   /** INIT MAP**/
-
   mapMarkers = []
 
   initMap = () => {
@@ -300,7 +303,18 @@ resetApp = () => {
   })
 }
 
-/********************* Manage Routing and REdirect *********************/
+/********************* Handle Default form Behaviour *********************/
+onInputSubmit = (event) => {
+  console.log("HOOLLLLA");
+  if (event.keyCode === 13) {
+    event.preventDefault(); // Let's stop this event.
+    event.stopPropagation(); // Really this time.
+
+    alert("Is it stopped?");
+    // "Hahaha, I'm gonna submit anyway!" - Chrome
+  }
+}
+
 
 /********************* Render *********************/
   render() {
@@ -336,6 +350,7 @@ resetApp = () => {
                               activeMarkers={this.activeMarkers}
                               mapCenter={this.state.mapCenter}
                               resetApp={this.resetApp}
+                              onInputSubmit={this.onInputSubmit}
                               />)
                        }
                      <HomeFooter citySearch={this.state.citySearch} curentLocation={this.state.curentLocation}/>
