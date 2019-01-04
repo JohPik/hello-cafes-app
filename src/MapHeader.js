@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-function MapHeader(props){
+const MapHeader = () => {
   return(
     <div className="map-heading">
       <Link to="/" className="home">

@@ -1,8 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 
-class HomeHeader extends Component {
-
-    render(){
+const HomeHeader = (props) => {
         return(
           <Fragment>
             <div className="home-heading">
@@ -10,7 +8,7 @@ class HomeHeader extends Component {
             </div>
             <div className="home-subheading">
 
-                { !this.props.citySearch ?
+                { !props.citySearch ?
                   <h2>Search Cafés in</h2>
                   :
                   <h2>Search Cafés in <span>Your City</span></h2>
@@ -19,7 +17,6 @@ class HomeHeader extends Component {
             </div>
           </Fragment>
         )
-    }
   }
 
 export default HomeHeader

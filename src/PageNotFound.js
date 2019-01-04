@@ -1,9 +1,7 @@
-import React, { Component} from 'react'
+import React from 'react'
 import { Link } from 'react-router-dom'
 
-class PageNotFound extends Component {
-
-    render(){
+const PageNotFound = () => {
       return (
         <div className="page-not-found">
             <h1>Error 404</h1>
@@ -11,9 +9,7 @@ class PageNotFound extends Component {
             <p>the page you are looking for does not exist</p>
             <Link  to="/" className="home"><button className="home-button back-menu"><i className="fas fa-arrow-circle-left"/>Return to Search Page</button></Link>
         </div>
-
       )
-    }
 }
 
 export default PageNotFound
